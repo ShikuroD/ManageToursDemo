@@ -9,4 +9,10 @@ namespace AppCore
         AVAILABLE,
         DISABLED
     }
+    public enum SEX
+    {
+        MALE,
+        FEMALE,
+        OTHER
+    }
 }

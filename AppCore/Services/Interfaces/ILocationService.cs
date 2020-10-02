@@ -9,7 +9,7 @@ namespace AppCore.Services
 {
     public interface ILocationService : IService<Location, LocationDTO, LocationDTO>
     {
-        Task<IEnumerable<LocationDTO>> GetAll();
+        Task<IList<LocationDTO>> GetAll();
         Task<LocationDTO> GetBy(int id);
         Task<LocationDTO> Add(LocationDTO entity);
         Task Update(LocationDTO entity);

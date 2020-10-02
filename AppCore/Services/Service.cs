@@ -10,46 +10,46 @@ namespace AppCore.Services
 {
     public class Service<Entity, Dto, SaveDto> : IService<Entity, Dto, SaveDto>
     {
-        protected readonly IUnitOfWork unitOfWork;
-        protected readonly IMapper mapper;
-        public Service(IUnitOfWork _unitOfWork, IMapper _mapper)
+        protected readonly IUnitOfWork _unitOfWork;
+        protected readonly IMapper _mapper;
+        public Service(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            unitOfWork = _unitOfWork;
-            mapper = _mapper;
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         public Dto toDto(Entity entity)
         {
-            return mapper.Map<Entity, Dto>(entity);
+            return _mapper.Map<Entity, Dto>(entity);
         }
 
-        public IEnumerable<Dto> toDtoRange(IEnumerable<Entity> entities)
+        public IList<Dto> toDtoRange(IList<Entity> entities)
         {
-            return mapper.Map<IEnumerable<Entity>, IEnumerable<Dto>>(entities);
+            return _mapper.Map<IList<Entity>, IList<Dto>>(entities);
         }
 
         public Entity toEntity(SaveDto save)
         {
-            return mapper.Map<SaveDto, Entity>(save);
+            return _mapper.Map<SaveDto, Entity>(save);
         }
 
-        public IEnumerable<Entity> toEnityRange(IEnumerable<SaveDto> dtos)
+        public IList<Entity> toEntityRange(IList<SaveDto> dtos)
         {
-            return mapper.Map<IEnumerable<SaveDto>, IEnumerable<Entity>>(dtos);
+            return _mapper.Map<IList<SaveDto>, IList<Entity>>(dtos);
         }
 
         public void convertEntityToDto(Entity entity, Dto dto)
         {
-            mapper.Map<Entity, Dto>(entity, dto);
+            _mapper.Map<Entity, Dto>(entity, dto);
         }
         public void convertDtoToEntity(SaveDto save, Entity entity)
         {
-            mapper.Map<SaveDto, Entity>(save, entity);
+            _mapper.Map<SaveDto, Entity>(save, entity);
         }
 
         public async Task<int> CompleteAsync()
         {
-            return await unitOfWork.CompleteAsync();
+            return await _unitOfWork.CompleteAsync();
         }
     }
 }

@@ -11,39 +11,39 @@ namespace AppCore.Services
 {
     public class TourTypeService : Service<TourType, TourTypeDTO, TourTypeDTO>, ITourTypeService
     {
-        public TourTypeService(IUnitOfWork _unitOfWork, IMapper _mapper) : base(_unitOfWork, _mapper)
+        public TourTypeService(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
         {
 
         }
-        public async Task<IEnumerable<TourTypeDTO>> GetAll()
+        public async Task<IList<TourTypeDTO>> GetAll()
         {
-            return toDtoRange(await unitOfWork.TourTypes.GetAll());
+            return toDtoRange(await _unitOfWork.TourTypes.GetAll());
         }
         public async Task<TourTypeDTO> GetBy(int id)
         {
-            return toDto(await unitOfWork.TourTypes.GetBy(id));
+            return toDto(await _unitOfWork.TourTypes.GetBy(id));
         }
         public async Task<TourTypeDTO> Add(TourTypeDTO entity)
         {
-            return toDto(await unitOfWork.TourTypes.Add(toEntity(entity)));
+            return toDto(await _unitOfWork.TourTypes.Add(toEntity(entity)));
         }
         public async Task Update(TourTypeDTO entity)
         {
-            await unitOfWork.TourTypes.Update(toEntity(entity));
+            await _unitOfWork.TourTypes.Update(toEntity(entity));
         }
         public async Task Delete(TourTypeDTO entity)
         {
-            await unitOfWork.TourTypes.Delete(toEntity(entity));
+            await _unitOfWork.TourTypes.Delete(toEntity(entity));
         }
 
         public async Task Activate(TourTypeDTO entity)
         {
-            await unitOfWork.TourTypes.Activate(toEntity(entity));
+            await _unitOfWork.TourTypes.Activate(toEntity(entity));
         }
 
         public async Task Disable(TourTypeDTO entity)
         {
-            await unitOfWork.TourTypes.Disable(toEntity(entity));
+            await _unitOfWork.TourTypes.Disable(toEntity(entity));
         }
     }
 }

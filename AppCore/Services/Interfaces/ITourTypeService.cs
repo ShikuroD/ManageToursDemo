@@ -9,7 +9,7 @@ namespace AppCore.Services
 {
     public interface ITourTypeService : IService<TourType, TourTypeDTO, TourTypeDTO>
     {
-        Task<IEnumerable<TourTypeDTO>> GetAll();
+        Task<IList<TourTypeDTO>> GetAll();
         Task<TourTypeDTO> GetBy(int id);
         Task<TourTypeDTO> Add(TourTypeDTO entity);
         Task Update(TourTypeDTO entity);

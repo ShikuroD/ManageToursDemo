@@ -16,7 +16,7 @@ namespace Infrastructure.Repos
             _context = context;
         }
 
-        public async Task<IEnumerable<T>> GetAll()
+        public async Task<IList<T>> GetAll()
         {
             return await _context.Set<T>().ToListAsync();
         }

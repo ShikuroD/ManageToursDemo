@@ -8,10 +8,10 @@ namespace AppCore.Services
     public interface IService<Entity, Dto, SaveDto>
     {
         Dto toDto(Entity entity);
-        IEnumerable<Dto> toDtoRange(IEnumerable<Entity> entities);
+        IList<Dto> toDtoRange(IList<Entity> entities);
 
         Entity toEntity(SaveDto save);
-        IEnumerable<Entity> toEnityRange(IEnumerable<SaveDto> entites);
+        IList<Entity> toEntityRange(IList<SaveDto> entites);
         void convertEntityToDto(Entity entity, Dto dto);
         void convertDtoToEntity(SaveDto dto, Entity entity);
 

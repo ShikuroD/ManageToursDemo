@@ -7,7 +7,7 @@ namespace AppCore.Interfaces
 {
     public interface IRepository<T> where T : class
     {
-        Task<IEnumerable<T>> GetAll();
+        Task<IList<T>> GetAll();
         Task<T> GetBy(int id);
         Task<T> Add(T entity);
         Task Update(T entity);

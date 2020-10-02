@@ -9,7 +9,8 @@ namespace AppCore.Services
 {
     public interface ITourService : IService<Tour, TourDTO, TourDTO>
     {
-        Task<IEnumerable<TourDTO>> GetAll();
+        //tours root
+        Task<IList<TourDTO>> GetAll();
         Task<TourDTO> GetBy(int id);
         Task<TourDTO> Add(TourDTO entity);
         Task Update(TourDTO entity);
@@ -18,5 +19,19 @@ namespace AppCore.Services
         Task Activate(TourDTO entity);
 
         Task Disable(TourDTO entity);
+
+        //dependent entities
+        Task<IList<TourDetailDTO>> GetTourDetailsByTourId(int tourId);
+        Task UpdateTourDetails(IList<TourDetailDTO> dets);
+        Task RemoveAllTourDetails(int tourId);
+
+
+        //manage prices
+        Task<IList<PriceDTO>> GetPricesByTourId(int tourId);
+
+        Task<PriceDTO> GetPrice(int tourId, int priceId);
+        Task<PriceDTO> AddPrice(int tourId, PriceDTO price);
+        Task DisablePrice(int tourId, int priceId);
+        Task ActivatePrice(int tourId, int priceId);
     }
 }

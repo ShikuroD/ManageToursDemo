@@ -9,42 +9,42 @@ using System.Threading.Tasks;
 
 namespace AppCore.Services
 {
-    class LocationService : Service<Location, LocationDTO, LocationDTO>, ILocationService
+    public class LocationService : Service<Location, LocationDTO, LocationDTO>, ILocationService
     {
-        public LocationService(IUnitOfWork _unitOfWork, IMapper _mapper) : base(_unitOfWork, _mapper)
+        public LocationService(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
         {
 
         }
 
-        public async Task<IEnumerable<LocationDTO>> GetAll()
+        public async Task<IList<LocationDTO>> GetAll()
         {
-            return toDtoRange(await unitOfWork.Locations.GetAll());
+            return toDtoRange(await _unitOfWork.Locations.GetAll());
         }
         public async Task<LocationDTO> GetBy(int id)
         {
-            return toDto(await unitOfWork.Locations.GetBy(id));
+            return toDto(await _unitOfWork.Locations.GetBy(id));
         }
         public async Task<LocationDTO> Add(LocationDTO entity)
         {
-            return toDto(await unitOfWork.Locations.Add(toEntity(entity)));
+            return toDto(await _unitOfWork.Locations.Add(toEntity(entity)));
         }
         public async Task Update(LocationDTO entity)
         {
-            await unitOfWork.Locations.Update(toEntity(entity));
+            await _unitOfWork.Locations.Update(toEntity(entity));
         }
         public async Task Delete(LocationDTO entity)
         {
-            await unitOfWork.Locations.Delete(toEntity(entity));
+            await _unitOfWork.Locations.Delete(toEntity(entity));
         }
 
         public async Task Activate(LocationDTO entity)
         {
-            await unitOfWork.Locations.Activate(toEntity(entity));
+            await _unitOfWork.Locations.Activate(toEntity(entity));
         }
 
         public async Task Disable(LocationDTO entity)
         {
-            await unitOfWork.Locations.Disable(toEntity(entity));
+            await _unitOfWork.Locations.Disable(toEntity(entity));
         }
     }
 }

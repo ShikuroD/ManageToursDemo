@@ -10,6 +10,9 @@ using Infrastructure;
 using Infrastructure.Repos;
 using AutoMapper;
 using AppCore;
+using Presentation.VMServices;
+using Microsoft.Extensions.Logging;
+using AppCore.Services;
 
 namespace Presentation
 {
@@ -34,7 +37,7 @@ namespace Presentation
             context.SaveChanges();
 
             ///run forms
-            var mainForm = ServiceProvider.GetService<MainForm>();
+            var mainForm = ServiceProvider.GetRequiredService<MainForm>();
             Application.Run(mainForm);
 
         }
@@ -47,13 +50,23 @@ namespace Presentation
             //forms
             services.AddScoped<MainForm>();
 
-
+            //auto mapper
             services.AddAutoMapper(typeof(Mapping));
 
+            //add repositories
             services.AddTransient<ITourRepos, TourRepos>();
             services.AddTransient<ITourTypeRepos, TourTypeRepos>();
             services.AddTransient<ILocationRepos, LocationRepos>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
+
+            //add core services
+            services.AddTransient<ITourService, TourService>();
+            services.AddTransient<ITourTypeService, TourTypeService>();
+            services.AddTransient<ILocationService, LocationService>();
+
+
+            //add vm services
+            services.AddTransient<IVMTourService, VMTourService>();
 
             services.AddDbContext<ManageToursContext>(options => options.UseSqlite("Data Source=tours.db", x => x.MigrationsAssembly("Presentation.Migrations")));
             ServiceProvider = services.BuildServiceProvider();
