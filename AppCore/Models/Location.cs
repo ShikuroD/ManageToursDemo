@@ -10,7 +10,7 @@ namespace AppCore.Models
         public string Name { get; set; }
         public STATUS Status { get; set; } = STATUS.AVAILABLE;
 
-        public IList<TourDetail> TourDetails { get; set; }
+        
 
         public Location()
         {

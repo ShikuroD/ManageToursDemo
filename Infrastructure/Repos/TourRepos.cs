@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
-using System.Threading.Tasks;
+
 using AppCore;
 using AppCore.Interfaces;
 using AppCore.Models;
@@ -20,101 +20,101 @@ namespace Infrastructure.Repos
         }
 
         //manage tour details
-        public async Task<IList<TourDetail>> GetTourDetailsByTourId(int tourId)
+        public IList<TourDetail> GetTourDetailsByTourId(int tourId)
         {
-            return await _context.TourDetails.Where(m => m.TourId.Equals(tourId)).OrderBy(m => m.Order).ToListAsync();
+            return _context.TourDetails.Where(m => m.TourId.Equals(tourId)).OrderBy(m => m.Order).ToList();
         }
 
-        public async Task UpdateTourDetails(IList<TourDetail> dets)
+        public void UpdateTourDetails(IList<TourDetail> dets)
         {
             if(dets == null || dets.Count == 0)
             {
                 return;
             }
             var tourId = dets.First().TourId;
-            await this.RemoveAllTourDetails(tourId);
-            await _context.TourDetails.AddRangeAsync(dets);
-            await _context.SaveChangesAsync();
+            this.RemoveAllTourDetails(tourId);
+            _context.TourDetails.AddRange(dets);
+            _context.SaveChanges();
         }
 
-        public async Task RemoveAllTourDetails(int tourId)
+        public void RemoveAllTourDetails(int tourId)
         {
-            _context.TourDetails.RemoveRange((await this.GetTourDetailsByTourId(tourId)));
-            await _context.SaveChangesAsync();
+            _context.TourDetails.RemoveRange((this.GetTourDetailsByTourId(tourId)));
+            _context.SaveChanges();
         }
 
 
         //manage prices
-        public async Task<IList<Price>> GetPricesByTourId(int tourId)
+        public IList<Price> GetPricesByTourId(int tourId)
         {
-            return await _context.Prices.Where(m => m.TourId.Equals(tourId)).ToListAsync();
+            return _context.Prices.Where(m => m.TourId.Equals(tourId)).ToList();
         }
-        public async Task<Price> GetPrice(int tourId, int priceId)
+        public Price GetPrice(int tourId, int priceId)
         {
-            var prices = await _context.Prices.Where(m => m.Id.Equals(priceId) && m.TourId.Equals(tourId)).ToListAsync();
+            var prices = _context.Prices.Where(m => m.Id.Equals(priceId) && m.TourId.Equals(tourId)).ToList();
             if (prices != null && prices.Count() != 0)
             {
                 return prices.First();
             }
             return null;
         }
-        public async Task<Price> AddPrice(int tourId, Price price)
+        public Price AddPrice(int tourId, Price price)
         {
-            if((await this.TourExists(tourId)) && tourId.Equals(price.TourId)){
-                var tracked = await _context.Prices.AddAsync(price);
-                await _context.SaveChangesAsync();
+            if((this.TourExists(tourId)) && tourId.Equals(price.TourId)){
+                var tracked = _context.Prices.Add(price);
+                _context.SaveChanges();
                 return tracked.Entity;
             }
             return null;
 
         }
-        public async Task DisablePrice(int tourId, int priceId)
+        public void DisablePrice(int tourId, int priceId)
         {
-            var price = await this.GetPrice(tourId, priceId);
+            var price = this.GetPrice(tourId, priceId);
             if(price != null)
             {
-                await this.UpdatePriceStatus(price, STATUS.DISABLED);
+                this.UpdatePriceStatus(price, STATUS.DISABLED);
             }
 
         }
-        public async Task ActivatePrice(int tourId, int priceId)
+        public void ActivatePrice(int tourId, int priceId)
         {
-            var price = await this.GetPrice(tourId, priceId);
+            var price = this.GetPrice(tourId, priceId);
             if (price != null)
             {
-                await this.UpdatePriceStatus(price, STATUS.AVAILABLE);
+                this.UpdatePriceStatus(price, STATUS.AVAILABLE);
             }
 
         }
-        private async Task UpdatePriceStatus(Price price, STATUS status)
+        private void UpdatePriceStatus(Price price, STATUS status)
         {
             price.Status = status;
             _context.Prices.Update(price);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
 
 
 
         //status
-        public new async Task Activate(Tour entity)
+        public new void Activate(Tour entity)
         {
-            await this.UpdateStatus(entity, STATUS.AVAILABLE); 
+            this.UpdateStatus(entity, STATUS.AVAILABLE); 
         }
 
-        public new async Task Disable(Tour entity)
+        public new void Disable(Tour entity)
         {
-            await this.UpdateStatus(entity, STATUS.DISABLED);
+            this.UpdateStatus(entity, STATUS.DISABLED);
         }
 
-        private async Task UpdateStatus(Tour entity, STATUS status)
+        private void UpdateStatus(Tour entity, STATUS status)
         {
             entity.Status = status;
-            await this.Update(entity);
+            this.Update(entity);
         }
-        public async Task<bool> TourExists(int tourId)
+        public bool TourExists(int tourId)
         {
-            return (await this.GetBy(tourId)) != null;
+            return (this.GetBy(tourId)) != null;
         }
     }
 }

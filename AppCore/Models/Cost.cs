@@ -14,6 +14,10 @@ namespace AppCore.Models
 
         public int CostTypeId { get; set; }
         public CostType CostType { get; set; }
+
+        public int GroupId { get; set; }
+        public Group Group { get; set; }
+
         public STATUS Status { get; set; } = STATUS.AVAILABLE;
 
         public Cost()

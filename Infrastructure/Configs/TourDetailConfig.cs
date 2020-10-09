@@ -15,6 +15,7 @@ namespace Infrastructure.Configs
             builder.Property(m => m.Id).ValueGeneratedOnAdd();
 
             builder.HasIndex(m => new { m.TourId, m.LocationId, m.Order}).IsUnique();
+                
         }
     }
 }

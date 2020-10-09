@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Threading.Tasks;
+
 using AppCore;
 using AppCore.Interfaces;
 using AppCore.Models;
@@ -17,20 +17,20 @@ namespace Infrastructure.Repos
         }
 
 
-        public new async Task Activate(Location entity)
+        public new void Activate(Location entity)
         {
-            await this.UpdateStatus(entity, STATUS.AVAILABLE);
+            this.UpdateStatus(entity, STATUS.AVAILABLE);
         }
 
-        public new async Task Disable(Location entity)
+        public new void Disable(Location entity)
         {
-            await this.UpdateStatus(entity, STATUS.DISABLED);
+            this.UpdateStatus(entity, STATUS.DISABLED);
         }
 
-        private async Task UpdateStatus(Location entity, STATUS status)
+        private void UpdateStatus(Location entity, STATUS status)
         {
             entity.Status = status;
-            await this.Update(entity);
+            this.Update(entity);
         }
     }
 }

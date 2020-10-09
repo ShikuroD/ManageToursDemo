@@ -9,7 +9,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+
 using System.Windows.Forms;
 
 namespace Presentation
@@ -17,15 +17,13 @@ namespace Presentation
     public partial class MainForm : Form
     {
         private readonly IVMTourService _tourService;
-        private readonly ITourTypeService _tempTours;
+        
 
         public TourTabVM TourTabVM { get; set; }
-        public MainForm(IVMTourService tours, ITourTypeService tempTours)
+        public MainForm(IVMTourService tours)
         {
             _tourService = tours;
-            _tempTours = tempTours;
-
-            //TourVM = _tourService.LoadTourVMData();
+            
             InitializeComponent();
         }
         private void LoadLocationListView()

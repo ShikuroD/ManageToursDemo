@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace AppCore.Models
@@ -9,7 +10,11 @@ namespace AppCore.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public SEX Sex { get; set; }
+
+        [RegularExpression(@"^[0-9]{10}$", ErrorMessage = "Mã căn cước phải có 10 chữ số")]
         public string IdentityCode { get; set; }
+
+        [RegularExpression(@"^[0-9]{10}$", ErrorMessage = "Số điện thoại phải có 10 chữ số")]
         public string PhoneNumber { get; set; }
         public string Address { get; set; }
 

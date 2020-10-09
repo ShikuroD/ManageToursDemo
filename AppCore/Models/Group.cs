@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace AppCore.Models
 {
@@ -20,8 +21,13 @@ namespace AppCore.Models
 
         public string Description { get; set; }
 
-        public IList<Employee> Employees { get; set; }
-        public IList<Customer> Customers { get; set; }
+        public int TourId { get; set; }
+
+        public Tour Tour { get; set; }
+
+        public IList<Cost> Costs { get; set; }
+        public IList<Attendant> Attendants { get; set; }
+        public IList<GroupDetail> GroupDetails { get; set; }
 
         public STATUS Status { get; set; } = STATUS.AVAILABLE;
 
@@ -29,12 +35,13 @@ namespace AppCore.Models
         {
         }
 
-        public Group(string name, DateTime startDate, DateTime endDate, string description, STATUS status = STATUS.AVAILABLE)
+        public Group(string name, DateTime startDate, DateTime endDate, string description, int tourId, STATUS status = STATUS.AVAILABLE)
         {
             Name = name;
             StartDate = startDate;
             EndDate = endDate;
             Description = description;
+            TourId = tourId;
             Status = status;
         }
     }

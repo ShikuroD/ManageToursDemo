@@ -2,8 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Threading.Tasks;
+
 using AppCore.Interfaces;
+using System.Linq;
 
 namespace Infrastructure.Repos
 {
@@ -16,44 +17,44 @@ namespace Infrastructure.Repos
             _context = context;
         }
 
-        public async Task<IList<T>> GetAll()
+        public IList<T> GetAll()
         {
-            return await _context.Set<T>().ToListAsync();
+            return _context.Set<T>().ToList();
         }
 
-        public async Task<T> GetBy(int id)
+        public T GetBy(int id)
         {
-            return await _context.Set<T>().FindAsync(id);
+            return _context.Set<T>().Find(id);
         }
 
-        public async Task<T> Add(T entity)
+        public T Add(T entity)
         {
-            var tracked = await _context.Set<T>().AddAsync(entity);
-            await _context.SaveChangesAsync();
+            var tracked = _context.Set<T>().Add(entity);
+            _context.SaveChanges();
 
             return tracked.Entity;
         }
 
-        public async Task Update(T entity)
+        public void Update(T entity)
         {
             _context.Set<T>().Update(entity);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
-        public async Task Delete(T entity)
+        public void Delete(T entity)
         {
             _context.Set<T>().Remove(entity);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
-        public async Task Activate(T entity)
+        public void Activate(T entity)
         {
-            await Task.CompletedTask;
+            
         }
 
-        public async Task Disable(T entity)
+        public void Disable(T entity)
         {
-            await Task.CompletedTask;
+            
         }
     }
 }

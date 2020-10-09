@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Threading.Tasks;
+
 using AppCore;
 using AppCore.Interfaces;
 using AppCore.Models;
@@ -17,20 +17,20 @@ namespace Infrastructure.Repos
         }
 
 
-        public new async Task Activate(TourType entity)
+        public new void Activate(TourType entity)
         {
-            await this.UpdateStatus(entity, STATUS.AVAILABLE);
+            this.UpdateStatus(entity, STATUS.AVAILABLE);
         }
 
-        public new async Task Disable(TourType entity)
+        public new void Disable(TourType entity)
         {
-            await this.UpdateStatus(entity, STATUS.DISABLED);
+            this.UpdateStatus(entity, STATUS.DISABLED);
         }
 
-        private async Task UpdateStatus(TourType entity, STATUS status)
+        private void UpdateStatus(TourType entity, STATUS status)
         {
             entity.Status = status;
-            await this.Update(entity);
+            this.Update(entity);
         }
     }
 }

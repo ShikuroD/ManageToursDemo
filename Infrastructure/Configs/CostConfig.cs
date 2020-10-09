@@ -1,22 +1,22 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AppCore.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using AppCore.Models;
 
 namespace Infrastructure.Configs
 {
-    public class LocationConfig : IEntityTypeConfiguration<Location>
+    public class CostConfig : IEntityTypeConfiguration<Cost>
     {
-        void IEntityTypeConfiguration<Location>.Configure(EntityTypeBuilder<Location> builder)
+        void IEntityTypeConfiguration<Cost>.Configure(EntityTypeBuilder<Cost> builder)
         {
             builder.HasKey(m => m.Id);
             builder.Property(m => m.Id).ValueGeneratedOnAdd();
 
-            builder.HasMany<TourDetail>()
-                .WithOne(t => t.Location)
-                .HasForeignKey(t => t.LocationId);
+            builder.HasOne<CostType>(m => m.CostType)
+                .WithMany()
+                .HasForeignKey(m => m.CostTypeId);
 
             builder.Property(m => m.Name)
                 .IsRequired()

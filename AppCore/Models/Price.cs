@@ -10,6 +10,8 @@ namespace AppCore.Models
         public int Id { get; set; }
         public int TourId { get; set; }
         public Tour Tour { get;set; }
+
+        [DataType(DataType.Currency)]
         public double Value { get; set; }
 
         [Display(Name = "Start date")]

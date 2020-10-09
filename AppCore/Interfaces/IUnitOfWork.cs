@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Threading.Tasks;
+
 
 namespace AppCore.Interfaces
 {
@@ -11,6 +11,6 @@ namespace AppCore.Interfaces
         ITourRepos Tours { get; }
         ITourTypeRepos TourTypes { get; }
 
-        Task<int> CompleteAsync();
+        int Complete();
     }
 }
