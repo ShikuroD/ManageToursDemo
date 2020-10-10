@@ -19,6 +19,15 @@ namespace Infrastructure.Repos
             _context = context;
         }
 
+        public new IList<Tour> GetAllByStatus(STATUS status = STATUS.ALL)
+        {
+            if (status == STATUS.ALL) return this.GetAll();
+            else
+            {
+                return _context.Set<Tour>().Where(m => m.Status == status).ToList();
+            }
+        }
+
         //manage tour details
         public IList<TourDetail> GetTourDetailsByTourId(int tourId)
         {
@@ -60,7 +69,7 @@ namespace Infrastructure.Repos
         }
         public Price AddPrice(int tourId, Price price)
         {
-            if((this.TourExists(tourId)) && tourId.Equals(price.TourId)){
+            if((this.Exists(tourId)) && tourId.Equals(price.TourId)){
                 var tracked = _context.Prices.Add(price);
                 _context.SaveChanges();
                 return tracked.Entity;
@@ -112,9 +121,6 @@ namespace Infrastructure.Repos
             entity.Status = status;
             this.Update(entity);
         }
-        public bool TourExists(int tourId)
-        {
-            return (this.GetBy(tourId)) != null;
-        }
+        
     }
 }

@@ -1,7 +1,9 @@
-﻿using AppCore.Interfaces;
+﻿using AppCore;
+using AppCore.Interfaces;
 using AppCore.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Infrastructure.Repos
@@ -12,6 +14,15 @@ namespace Infrastructure.Repos
         public CostTypeRepos(ManageToursContext context) : base(context)
         {
             _context = context;
+        }
+
+        public new IList<CostType> GetAllByStatus(STATUS status = STATUS.ALL)
+        {
+            if (status == STATUS.ALL) return this.GetAll();
+            else
+            {
+                return _context.Set<CostType>().Where(m => m.Status == status).ToList();
+            }
         }
     }
 }

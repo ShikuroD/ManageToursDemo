@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 
 using AppCore.Interfaces;
+using AppCore;
 using System.Linq;
 
 namespace Infrastructure.Repos
@@ -20,6 +21,12 @@ namespace Infrastructure.Repos
         public IList<T> GetAll()
         {
             return _context.Set<T>().ToList();
+        }
+
+        public IList<T> GetAllByStatus(STATUS status = STATUS.ALL)
+        {
+            if (status == STATUS.ALL) return this.GetAll();
+            else return null;
         }
 
         public T GetBy(int id)
@@ -45,6 +52,11 @@ namespace Infrastructure.Repos
         {
             _context.Set<T>().Remove(entity);
             _context.SaveChanges();
+        }
+
+        public bool Exists(int id)
+        {
+            return this.GetBy(id) != null;
         }
 
         public void Activate(T entity)

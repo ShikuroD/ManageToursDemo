@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 using AppCore;
@@ -16,7 +17,14 @@ namespace Infrastructure.Repos
             _context = context;
         }
 
-
+        public new IList<Location> GetAllByStatus(STATUS status = STATUS.ALL)
+        {
+            if (status == STATUS.ALL) return this.GetAll();
+            else
+            {
+                return _context.Set<Location>().Where(m => m.Status == status).ToList();
+            }
+        }
         public new void Activate(Location entity)
         {
             this.UpdateStatus(entity, STATUS.AVAILABLE);

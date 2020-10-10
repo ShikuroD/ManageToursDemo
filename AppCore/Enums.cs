@@ -7,7 +7,8 @@ namespace AppCore
     public enum STATUS
     {
         AVAILABLE,
-        DISABLED
+        DISABLED,
+        ALL
     }
     public enum SEX
     {

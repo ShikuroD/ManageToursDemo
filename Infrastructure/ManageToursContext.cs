@@ -21,6 +21,15 @@ namespace Infrastructure
             builder.ApplyConfiguration(new TourDetailConfig());
             builder.ApplyConfiguration(new PriceConfig());
             builder.ApplyConfiguration(new LocationConfig());
+            builder.ApplyConfiguration(new CustomerConfig());
+            builder.ApplyConfiguration(new GroupDetailConfig());
+            builder.ApplyConfiguration(new JobConfig());
+            builder.ApplyConfiguration(new EmployeeConfig());
+            builder.ApplyConfiguration(new AttendantConfig());
+            builder.ApplyConfiguration(new GroupConfig());
+            builder.ApplyConfiguration(new CostTypeConfig());
+            builder.ApplyConfiguration(new CostConfig());
+
 
         }
 
@@ -30,5 +39,15 @@ namespace Infrastructure
         public DbSet<TourDetail> TourDetails { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<Price> Prices { get; set; }
+
+        public DbSet<Job> Jobs { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<Attendant> Attendants { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<GroupDetail> GroupDetails { get; set; }
+        public DbSet<Group> Groups { get; set; }
+        public DbSet<CostType> CostTypes { get; set; }
+        public DbSet<Cost> Costs { get; set; }
+
     }
 }

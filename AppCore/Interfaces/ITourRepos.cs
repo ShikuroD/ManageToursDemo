@@ -7,6 +7,9 @@ namespace AppCore.Interfaces
 {
     public interface ITourRepos : IRepository<Tour>
     {
+        //manage groups
+        IList<Group> GetGroupsByTourId(int tourId, STATUS status = STATUS.ALL);
+
         ///manage tourdetails
         IList<TourDetail> GetTourDetailsByTourId(int tourId);
         void UpdateTourDetails(IList<TourDetail> dets);
@@ -14,7 +17,7 @@ namespace AppCore.Interfaces
 
 
         //manage prices
-        IList<Price> GetPricesByTourId(int tourId);
+        IList<Price> GetPricesByTourId(int tourId, STATUS status = STATUS.ALL);
 
         Price GetPrice(int tourId, int priceId);
         Price AddPrice(int tourId, Price price);

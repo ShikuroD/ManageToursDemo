@@ -17,6 +17,8 @@ namespace AppCore.Models
 
         public IList<TourDetail> TourDetails { get; set; }
 
+        public IList<Group> Groups { get; set; }
+
         public STATUS Status { get; set; } = STATUS.AVAILABLE;
 
         public Tour() { }

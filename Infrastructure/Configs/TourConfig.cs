@@ -25,6 +25,11 @@ namespace Infrastructure.Configs
                 .HasForeignKey(t => t.TourId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            builder.HasMany<Group>(m => m.Groups)
+                .WithOne(t => t.Tour)
+                .HasForeignKey(t => t.TourId)
+                .OnDelete(DeleteBehavior.Cascade);
+
             builder.HasMany<TourDetail>(m => m.TourDetails)
                 .WithOne(t => t.Tour)
                 .HasForeignKey(t => t.TourId)
