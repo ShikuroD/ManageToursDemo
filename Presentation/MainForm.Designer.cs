@@ -28,163 +28,347 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tabControl = new System.Windows.Forms.TabControl();
-            this.tabTours = new System.Windows.Forms.TabPage();
-            this.pnLocation = new System.Windows.Forms.GroupBox();
-            this.btnUpdateLocation = new System.Windows.Forms.Button();
-            this.btnDeleteLocation = new System.Windows.Forms.Button();
-            this.btnAddLocation = new System.Windows.Forms.Button();
-            this.listLocation = new System.Windows.Forms.ListView();
-            this.LocaId = new System.Windows.Forms.ColumnHeader();
-            this.LocaName = new System.Windows.Forms.ColumnHeader();
-            this.tabGroups = new System.Windows.Forms.TabPage();
-            this.tabAnalysis = new System.Windows.Forms.TabPage();
-            this.tabControl.SuspendLayout();
-            this.tabTours.SuspendLayout();
-            this.pnLocation.SuspendLayout();
+            this.pnTableTourButton = new System.Windows.Forms.TableLayoutPanel();
+            this.btnEditTour = new System.Windows.Forms.Button();
+            this.btnDeleteTour = new System.Windows.Forms.Button();
+            this.btnAddTour = new System.Windows.Forms.Button();
+            this.pnTourInfo = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnTourDetail = new System.Windows.Forms.Button();
+            this.btnManagePrice = new System.Windows.Forms.Button();
+            this.btnManageGroup = new System.Windows.Forms.Button();
+            this.txtDescription = new System.Windows.Forms.RichTextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtTourName = new System.Windows.Forms.TextBox();
+            this.txtTourType = new System.Windows.Forms.TextBox();
+            this.txtTourId = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnManageTourType = new System.Windows.Forms.Button();
+            this.btnManageLocation = new System.Windows.Forms.Button();
+            this.btnMangeEmployee = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.gridViewTour = new System.Windows.Forms.DataGridView();
+            this.pnTableTourButton.SuspendLayout();
+            this.pnTourInfo.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewTour)).BeginInit();
             this.SuspendLayout();
             // 
-            // tabControl
+            // pnTableTourButton
             // 
-            this.tabControl.Controls.Add(this.tabTours);
-            this.tabControl.Controls.Add(this.tabGroups);
-            this.tabControl.Controls.Add(this.tabAnalysis);
-            this.tabControl.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.tabControl.ItemSize = new System.Drawing.Size(100, 30);
-            this.tabControl.Location = new System.Drawing.Point(12, 12);
-            this.tabControl.Name = "tabControl";
-            this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(1240, 657);
-            this.tabControl.TabIndex = 0;
-            this.tabControl.SelectedIndexChanged += new System.EventHandler(this.tabControl_SelectedIndexChanged);
+            this.pnTableTourButton.ColumnCount = 3;
+            this.pnTableTourButton.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.pnTableTourButton.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.pnTableTourButton.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.pnTableTourButton.Controls.Add(this.btnEditTour, 2, 0);
+            this.pnTableTourButton.Controls.Add(this.btnDeleteTour, 1, 0);
+            this.pnTableTourButton.Controls.Add(this.btnAddTour, 0, 0);
+            this.pnTableTourButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.pnTableTourButton.Location = new System.Drawing.Point(819, 175);
+            this.pnTableTourButton.Name = "pnTableTourButton";
+            this.pnTableTourButton.RowCount = 1;
+            this.pnTableTourButton.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.pnTableTourButton.Size = new System.Drawing.Size(433, 65);
+            this.pnTableTourButton.TabIndex = 2;
             // 
-            // tabTours
+            // btnEditTour
             // 
-            this.tabTours.BackColor = System.Drawing.SystemColors.Control;
-            this.tabTours.Controls.Add(this.pnLocation);
-            this.tabTours.Location = new System.Drawing.Point(4, 34);
-            this.tabTours.Name = "tabTours";
-            this.tabTours.Padding = new System.Windows.Forms.Padding(3);
-            this.tabTours.Size = new System.Drawing.Size(1232, 619);
-            this.tabTours.TabIndex = 0;
-            this.tabTours.Text = "Tours";
+            this.btnEditTour.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.btnEditTour.Enabled = false;
+            this.btnEditTour.Location = new System.Drawing.Point(291, 3);
+            this.btnEditTour.Name = "btnEditTour";
+            this.btnEditTour.Size = new System.Drawing.Size(139, 59);
+            this.btnEditTour.TabIndex = 0;
+            this.btnEditTour.Text = "CẬP NHẬT";
+            this.btnEditTour.UseVisualStyleBackColor = false;
             // 
-            // pnLocation
+            // btnDeleteTour
             // 
-            this.pnLocation.Controls.Add(this.btnUpdateLocation);
-            this.pnLocation.Controls.Add(this.btnDeleteLocation);
-            this.pnLocation.Controls.Add(this.btnAddLocation);
-            this.pnLocation.Controls.Add(this.listLocation);
-            this.pnLocation.Location = new System.Drawing.Point(13, 16);
-            this.pnLocation.Name = "pnLocation";
-            this.pnLocation.Size = new System.Drawing.Size(200, 584);
-            this.pnLocation.TabIndex = 0;
-            this.pnLocation.TabStop = false;
-            this.pnLocation.Text = "Locations List";
+            this.btnDeleteTour.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.btnDeleteTour.Enabled = false;
+            this.btnDeleteTour.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnDeleteTour.Location = new System.Drawing.Point(147, 3);
+            this.btnDeleteTour.Name = "btnDeleteTour";
+            this.btnDeleteTour.Size = new System.Drawing.Size(138, 59);
+            this.btnDeleteTour.TabIndex = 0;
+            this.btnDeleteTour.Text = "XÓA";
+            this.btnDeleteTour.UseVisualStyleBackColor = false;
             // 
-            // btnUpdateLocation
+            // btnAddTour
             // 
-            this.btnUpdateLocation.Enabled = false;
-            this.btnUpdateLocation.Location = new System.Drawing.Point(7, 540);
-            this.btnUpdateLocation.Name = "btnUpdateLocation";
-            this.btnUpdateLocation.Size = new System.Drawing.Size(187, 38);
-            this.btnUpdateLocation.TabIndex = 1;
-            this.btnUpdateLocation.Text = "Update";
-            this.btnUpdateLocation.UseVisualStyleBackColor = true;
+            this.btnAddTour.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.btnAddTour.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnAddTour.Location = new System.Drawing.Point(3, 3);
+            this.btnAddTour.Name = "btnAddTour";
+            this.btnAddTour.Size = new System.Drawing.Size(138, 59);
+            this.btnAddTour.TabIndex = 0;
+            this.btnAddTour.Text = "THÊM";
+            this.btnAddTour.UseVisualStyleBackColor = false;
             // 
-            // btnDeleteLocation
+            // pnTourInfo
             // 
-            this.btnDeleteLocation.Enabled = false;
-            this.btnDeleteLocation.Location = new System.Drawing.Point(7, 496);
-            this.btnDeleteLocation.Name = "btnDeleteLocation";
-            this.btnDeleteLocation.Size = new System.Drawing.Size(187, 38);
-            this.btnDeleteLocation.TabIndex = 1;
-            this.btnDeleteLocation.Text = "Delete";
-            this.btnDeleteLocation.UseVisualStyleBackColor = true;
+            this.pnTourInfo.Controls.Add(this.tableLayoutPanel1);
+            this.pnTourInfo.Controls.Add(this.txtDescription);
+            this.pnTourInfo.Controls.Add(this.label4);
+            this.pnTourInfo.Controls.Add(this.txtTourName);
+            this.pnTourInfo.Controls.Add(this.txtTourType);
+            this.pnTourInfo.Controls.Add(this.txtTourId);
+            this.pnTourInfo.Controls.Add(this.label3);
+            this.pnTourInfo.Controls.Add(this.label2);
+            this.pnTourInfo.Controls.Add(this.label1);
+            this.pnTourInfo.Location = new System.Drawing.Point(12, 12);
+            this.pnTourInfo.Name = "pnTourInfo";
+            this.pnTourInfo.Size = new System.Drawing.Size(801, 225);
+            this.pnTourInfo.TabIndex = 3;
+            this.pnTourInfo.TabStop = false;
+            this.pnTourInfo.Text = "Thông tin tour du lịch";
             // 
-            // btnAddLocation
+            // tableLayoutPanel1
             // 
-            this.btnAddLocation.Location = new System.Drawing.Point(7, 452);
-            this.btnAddLocation.Name = "btnAddLocation";
-            this.btnAddLocation.Size = new System.Drawing.Size(187, 38);
-            this.btnAddLocation.TabIndex = 1;
-            this.btnAddLocation.Text = "Add";
-            this.btnAddLocation.UseVisualStyleBackColor = true;
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.btnTourDetail, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btnManagePrice, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.btnManageGroup, 0, 2);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(644, 38);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(142, 167);
+            this.tableLayoutPanel1.TabIndex = 8;
             // 
-            // listLocation
+            // btnTourDetail
             // 
-            this.listLocation.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.LocaId,
-            this.LocaName});
-            this.listLocation.FullRowSelect = true;
-            this.listLocation.GridLines = true;
-            this.listLocation.HideSelection = false;
-            this.listLocation.Location = new System.Drawing.Point(6, 28);
-            this.listLocation.Name = "listLocation";
-            this.listLocation.Size = new System.Drawing.Size(188, 417);
-            this.listLocation.TabIndex = 0;
-            this.listLocation.UseCompatibleStateImageBehavior = false;
-            this.listLocation.View = System.Windows.Forms.View.Details;
-            this.listLocation.SelectedIndexChanged += new System.EventHandler(this.listLocation_SelectedIndexChanged);
-            this.listLocation.Leave += new System.EventHandler(this.listLocation_Leave);
+            this.btnTourDetail.Enabled = false;
+            this.btnTourDetail.Location = new System.Drawing.Point(3, 3);
+            this.btnTourDetail.Name = "btnTourDetail";
+            this.btnTourDetail.Size = new System.Drawing.Size(136, 49);
+            this.btnTourDetail.TabIndex = 0;
+            this.btnTourDetail.Text = "Quản lí chi tiết";
+            this.btnTourDetail.UseVisualStyleBackColor = true;
             // 
-            // LocaId
+            // btnManagePrice
             // 
-            this.LocaId.Text = "ID";
+            this.btnManagePrice.Enabled = false;
+            this.btnManagePrice.Location = new System.Drawing.Point(3, 58);
+            this.btnManagePrice.Name = "btnManagePrice";
+            this.btnManagePrice.Size = new System.Drawing.Size(136, 47);
+            this.btnManagePrice.TabIndex = 1;
+            this.btnManagePrice.Text = "Quản lí giá";
+            this.btnManagePrice.UseVisualStyleBackColor = true;
             // 
-            // LocaName
+            // btnManageGroup
             // 
-            this.LocaName.Text = "Name";
-            this.LocaName.Width = 130;
+            this.btnManageGroup.Enabled = false;
+            this.btnManageGroup.Location = new System.Drawing.Point(3, 113);
+            this.btnManageGroup.Name = "btnManageGroup";
+            this.btnManageGroup.Size = new System.Drawing.Size(136, 51);
+            this.btnManageGroup.TabIndex = 2;
+            this.btnManageGroup.Text = "Quản lí đoàn khách";
+            this.btnManageGroup.UseVisualStyleBackColor = true;
             // 
-            // tabGroups
+            // txtDescription
             // 
-            this.tabGroups.BackColor = System.Drawing.SystemColors.Control;
-            this.tabGroups.Location = new System.Drawing.Point(4, 34);
-            this.tabGroups.Name = "tabGroups";
-            this.tabGroups.Padding = new System.Windows.Forms.Padding(3);
-            this.tabGroups.Size = new System.Drawing.Size(1232, 619);
-            this.tabGroups.TabIndex = 1;
-            this.tabGroups.Text = "Groups";
+            this.txtDescription.Enabled = false;
+            this.txtDescription.Location = new System.Drawing.Point(400, 56);
+            this.txtDescription.Name = "txtDescription";
+            this.txtDescription.Size = new System.Drawing.Size(218, 121);
+            this.txtDescription.TabIndex = 7;
+            this.txtDescription.Text = "";
             // 
-            // tabAnalysis
+            // label4
             // 
-            this.tabAnalysis.BackColor = System.Drawing.SystemColors.Control;
-            this.tabAnalysis.Location = new System.Drawing.Point(4, 34);
-            this.tabAnalysis.Name = "tabAnalysis";
-            this.tabAnalysis.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAnalysis.Size = new System.Drawing.Size(1232, 619);
-            this.tabAnalysis.TabIndex = 2;
-            this.tabAnalysis.Text = "Analysis";
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(348, 56);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(41, 15);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Mô tả:";
+            // 
+            // txtTourName
+            // 
+            this.txtTourName.Enabled = false;
+            this.txtTourName.Location = new System.Drawing.Point(97, 154);
+            this.txtTourName.Name = "txtTourName";
+            this.txtTourName.Size = new System.Drawing.Size(225, 23);
+            this.txtTourName.TabIndex = 5;
+            // 
+            // txtTourType
+            // 
+            this.txtTourType.Enabled = false;
+            this.txtTourType.Location = new System.Drawing.Point(97, 105);
+            this.txtTourType.Name = "txtTourType";
+            this.txtTourType.Size = new System.Drawing.Size(143, 23);
+            this.txtTourType.TabIndex = 4;
+            // 
+            // txtTourId
+            // 
+            this.txtTourId.Enabled = false;
+            this.txtTourId.Location = new System.Drawing.Point(97, 56);
+            this.txtTourId.Name = "txtTourId";
+            this.txtTourId.Size = new System.Drawing.Size(93, 23);
+            this.txtTourId.TabIndex = 3;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(34, 157);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(53, 15);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Tên tour:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(34, 108);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(57, 15);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Loại tour:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(34, 59);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(52, 15);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Mã tour:";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.tableLayoutPanel2);
+            this.groupBox1.Location = new System.Drawing.Point(819, 23);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(426, 132);
+            this.groupBox1.TabIndex = 4;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Quán lí thông tin hệ thống";
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 3;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel2.Controls.Add(this.btnManageTourType, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.btnManageLocation, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.btnMangeEmployee, 2, 0);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(14, 45);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(393, 59);
+            this.tableLayoutPanel2.TabIndex = 0;
+            // 
+            // btnManageTourType
+            // 
+            this.btnManageTourType.Location = new System.Drawing.Point(3, 3);
+            this.btnManageTourType.Name = "btnManageTourType";
+            this.btnManageTourType.Size = new System.Drawing.Size(124, 53);
+            this.btnManageTourType.TabIndex = 0;
+            this.btnManageTourType.Text = "Loại tour";
+            this.btnManageTourType.UseVisualStyleBackColor = true;
+            // 
+            // btnManageLocation
+            // 
+            this.btnManageLocation.Location = new System.Drawing.Point(134, 3);
+            this.btnManageLocation.Name = "btnManageLocation";
+            this.btnManageLocation.Size = new System.Drawing.Size(124, 53);
+            this.btnManageLocation.TabIndex = 1;
+            this.btnManageLocation.Text = "Địa điểm";
+            this.btnManageLocation.UseVisualStyleBackColor = true;
+            // 
+            // btnMangeEmployee
+            // 
+            this.btnMangeEmployee.Location = new System.Drawing.Point(265, 3);
+            this.btnMangeEmployee.Name = "btnMangeEmployee";
+            this.btnMangeEmployee.Size = new System.Drawing.Size(125, 53);
+            this.btnMangeEmployee.TabIndex = 2;
+            this.btnMangeEmployee.Text = "Nhân viên";
+            this.btnMangeEmployee.UseVisualStyleBackColor = true;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.gridViewTour);
+            this.groupBox2.Location = new System.Drawing.Point(13, 247);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(1239, 422);
+            this.groupBox2.TabIndex = 5;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Danh sách tour";
+            // 
+            // gridViewTour
+            // 
+            this.gridViewTour.AllowUserToAddRows = false;
+            this.gridViewTour.AllowUserToDeleteRows = false;
+            this.gridViewTour.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridViewTour.Location = new System.Drawing.Point(6, 33);
+            this.gridViewTour.Name = "gridViewTour";
+            this.gridViewTour.ReadOnly = true;
+            this.gridViewTour.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.gridViewTour.Size = new System.Drawing.Size(1226, 383);
+            this.gridViewTour.TabIndex = 0;
+            this.gridViewTour.Text = "dataGridView1";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1264, 681);
-            this.Controls.Add(this.tabControl);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.pnTourInfo);
+            this.Controls.Add(this.pnTableTourButton);
             this.Name = "MainForm";
             this.Text = "Traveling Tours Manager";
             this.Load += new System.EventHandler(this.MainForm_Load);
-            this.tabControl.ResumeLayout(false);
-            this.tabTours.ResumeLayout(false);
-            this.pnLocation.ResumeLayout(false);
+            this.pnTableTourButton.ResumeLayout(false);
+            this.pnTourInfo.ResumeLayout(false);
+            this.pnTourInfo.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewTour)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.TabControl tabControl;
-        private System.Windows.Forms.TabPage tabTours;
-        private System.Windows.Forms.TabPage tabGroups;
-        private System.Windows.Forms.TabPage tabAnalysis;
-        private System.Windows.Forms.GroupBox pnLocation;
-        private System.Windows.Forms.Button btnUpdateLocation;
-        private System.Windows.Forms.Button btnDeleteLocation;
-        private System.Windows.Forms.Button btnAddLocation;
-        private System.Windows.Forms.ListView listLocation;
-        private System.Windows.Forms.ColumnHeader LocaId;
-        private System.Windows.Forms.ColumnHeader LocaName;
+        private System.Windows.Forms.TableLayoutPanel pnTableTourButton;
+        private System.Windows.Forms.Button btnEditTour;
+        private System.Windows.Forms.Button btnDeleteTour;
+        private System.Windows.Forms.Button btnAddTour;
+        private System.Windows.Forms.GroupBox pnTourInfo;
+        private System.Windows.Forms.TextBox txtTourName;
+        private System.Windows.Forms.TextBox txtTourType;
+        private System.Windows.Forms.TextBox txtTourId;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.RichTextBox txtDescription;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Button btnTourDetail;
+        private System.Windows.Forms.Button btnManagePrice;
+        private System.Windows.Forms.Button btnManageGroup;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.Button btnManageTourType;
+        private System.Windows.Forms.Button btnManageLocation;
+        private System.Windows.Forms.Button btnMangeEmployee;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.DataGridView gridViewTour;
     }
 }

@@ -1,4 +1,5 @@
-﻿using AppCore.Services;
+﻿using AppCore.Models;
+using AppCore.Services;
 using Microsoft.Extensions.Logging;
 using Presentation.ViewModels;
 using Presentation.VMServices;
@@ -17,53 +18,43 @@ namespace Presentation
     public partial class MainForm : Form
     {
         private readonly IVMTourService _tourService;
-        
+
 
         public TourTabVM TourTabVM { get; set; }
+
+        
+        private void LoadTourGridView()
+        {
+            BindingSource src = new BindingSource();
+            src.DataSource = typeof(Tour);
+            this.gridViewTour.DataSource = src;
+
+            foreach(var t in TourTabVM.Tours)
+            {
+                src.Add(t);
+            }
+            this.gridViewTour.Columns["Id"].HeaderText = "ID";
+            this.gridViewTour.Columns["Name"].HeaderText = "Tên";
+            this.gridViewTour.Columns["TourTypeId"].HeaderText = "Loại";
+            this.gridViewTour.Columns["Description"].HeaderText = "Mô tả";
+
+            this.gridViewTour.Columns["Id"].DisplayIndex = 0;
+            this.gridViewTour.Columns["Name"].DisplayIndex = 2;
+            this.gridViewTour.Columns["TourTypeId"].DisplayIndex = 1;
+            this.gridViewTour.Columns["Description"].DisplayIndex = 3;
+        }
         public MainForm(IVMTourService tours)
         {
             _tourService = tours;
-            
+
             InitializeComponent();
         }
-        private void LoadLocationListView()
-        {
-            this.listLocation.Items.Clear();
-            foreach (var loc in this.TourTabVM.Locations)
-            {
-                ListViewItem item = new ListViewItem(loc.Id.ToString());
-                item.SubItems.Add(loc.Name);
-                item.SubItems.Add(loc.Status.ToString());
-
-                this.listLocation.Items.Add(item);
-            }
-        }
-
-        private void tabControl_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if(tabControl.SelectedTab == this.tabTours)
-            {
-                this.TourTabVM = _tourService.LoadTourTabData();
-                this.LoadLocationListView();
-            }
-        }
-
         private void MainForm_Load(object sender, EventArgs e)
         {
             this.TourTabVM = _tourService.LoadTourTabData();
-            this.LoadLocationListView();
+            this.LoadTourGridView();
         }
 
-        private void listLocation_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            btnUpdateLocation.Enabled = true;
-            btnDeleteLocation.Enabled = true;
-        }
 
-        private void listLocation_Leave(object sender, EventArgs e)
-        {
-            btnUpdateLocation.Enabled = false;
-            btnDeleteLocation.Enabled = false;
-        }
     }
 }

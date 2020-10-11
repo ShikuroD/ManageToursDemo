@@ -12,7 +12,7 @@ namespace AppCore.Models
         public Tour Tour { get;set; }
 
         [DataType(DataType.Currency)]
-        public double Value { get; set; }
+        public decimal Value { get; set; }
 
         [Display(Name = "Start date")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy HH:mm}")]
@@ -26,7 +26,7 @@ namespace AppCore.Models
         {
         }
 
-        public Price(int tourId, double value, DateTime startDate, DateTime endDate, STATUS status = STATUS.AVAILABLE)
+        public Price(int tourId, decimal value, DateTime startDate, DateTime endDate, STATUS status = STATUS.AVAILABLE)
         {
             TourId = tourId;
             Value = value;

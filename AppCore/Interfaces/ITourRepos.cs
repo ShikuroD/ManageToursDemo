@@ -5,10 +5,8 @@ using AppCore.Models;
 
 namespace AppCore.Interfaces
 {
-    public interface ITourRepos : IRepository<Tour>
+    public partial interface ITourRepos : IRepository<Tour>
     {
-        //manage groups
-        IList<Group> GetGroupsByTourId(int tourId, STATUS status = STATUS.ALL);
 
         ///manage tourdetails
         IList<TourDetail> GetTourDetailsByTourId(int tourId);
@@ -25,5 +23,14 @@ namespace AppCore.Interfaces
         void ActivatePrice(int tourId, int priceId);
 
 
+        //manage groups
+        IList<Group> GetGroupsByTourId(int tourId, STATUS status = STATUS.ALL);
+
+        Group GetGroup(int tourId, int groupId);
+        Group AddGroup(int tourId, Group group);
+        void DeleteGroup(Group group);
+        void UpdateGroup(Group group);
+        void DisableGroup(int tourId, int groupId);
+        void ActivateGroup(int tourId, int groupId);
     }
 }

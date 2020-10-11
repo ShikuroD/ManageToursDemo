@@ -19,6 +19,9 @@ namespace AppCore.Models
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy HH:mm}")]
         public DateTime EndDate { get; set; }
 
+        [DataType(DataType.Currency)]
+        public decimal Price { get; set; }
+
         public string Description { get; set; }
 
         public int TourId { get; set; }
@@ -35,11 +38,12 @@ namespace AppCore.Models
         {
         }
 
-        public Group(string name, DateTime startDate, DateTime endDate, string description, int tourId, STATUS status = STATUS.AVAILABLE)
+        public Group(string name, DateTime startDate, DateTime endDate, decimal price, string description, int tourId, STATUS status = STATUS.AVAILABLE)
         {
             Name = name;
             StartDate = startDate;
             EndDate = endDate;
+            Price = price;
             Description = description;
             TourId = tourId;
             Status = status;

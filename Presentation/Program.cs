@@ -13,6 +13,7 @@ using AppCore;
 using Presentation.VMServices;
 using Microsoft.Extensions.Logging;
 using AppCore.Services;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Presentation
 {
@@ -29,6 +30,7 @@ namespace Presentation
             Application.SetCompatibleTextRenderingDefault(false);
 
             ///register services
+            
             ConfigureServices();
 
             /// seed data
@@ -43,6 +45,7 @@ namespace Presentation
         }
 
         private static IServiceProvider ServiceProvider { get; set; }
+        //private static IHostingEnvironment _appHost;
         static void ConfigureServices()
         {
             var services = new ServiceCollection();
@@ -57,6 +60,10 @@ namespace Presentation
             services.AddTransient<ITourRepos, TourRepos>();
             services.AddTransient<ITourTypeRepos, TourTypeRepos>();
             services.AddTransient<ILocationRepos, LocationRepos>();
+            services.AddTransient<ICostTypeRepos, CostTypeRepos>();
+            services.AddTransient<ICustomerRepos, CustomerRepos>();
+            services.AddTransient<IEmployeeRepos, EmployeeRepos>();
+            services.AddTransient<IJobRepos, JobRepos>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             //add core services
@@ -68,7 +75,8 @@ namespace Presentation
             //add vm services
             services.AddTransient<IVMTourService, VMTourService>();
 
-            services.AddDbContext<ManageToursContext>(options => options.UseSqlite("Data Source=tours.db", x => x.MigrationsAssembly("Presentation.Migrations")));
+            //services.AddDbContext<ManageToursContext>(options => options.UseSqlite($"Data Source={_appHost.ContentRootPath}tours.db", x => x.MigrationsAssembly("Presentation.Migrations")));
+            services.AddDbContext<ManageToursContext>(options => options.UseSqlite($"Data Source=D:\\Code\\Visual Studio\\ManageToursDemo\\ManageToursDemo\\Presentation\\tours.db", x => x.MigrationsAssembly("Presentation.Migrations")));
             ServiceProvider = services.BuildServiceProvider();
         }
     }

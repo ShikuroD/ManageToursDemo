@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repos
 {
-    public class TourRepos : Repository<Tour>, ITourRepos
+    public partial class TourRepos : Repository<Tour>, ITourRepos
     {
         private readonly ManageToursContext _context;
         public TourRepos(ManageToursContext context) : base(context)
@@ -24,8 +24,23 @@ namespace Infrastructure.Repos
             if (status == STATUS.ALL) return this.GetAll();
             else
             {
-                return _context.Set<Tour>().Where(m => m.Status == status).ToList();
+                return _context.Tours.Where(m => m.Status == status).ToList();
             }
+        }
+        public new void Activate(Tour entity)
+        {
+            this.UpdateStatus(entity, STATUS.AVAILABLE);
+        }
+
+        public new void Disable(Tour entity)
+        {
+            this.UpdateStatus(entity, STATUS.DISABLED);
+        }
+
+        private void UpdateStatus(Tour entity, STATUS status)
+        {
+            entity.Status = status;
+            this.Update(entity);
         }
 
         //manage tour details
@@ -36,7 +51,7 @@ namespace Infrastructure.Repos
 
         public void UpdateTourDetails(IList<TourDetail> dets)
         {
-            if(dets == null || dets.Count == 0)
+            if (dets == null || !dets.Any())
             {
                 return;
             }
@@ -53,15 +68,22 @@ namespace Infrastructure.Repos
         }
 
 
+        //-------------------------------------------------------------------------------------------------------------------------------
         //manage prices
-        public IList<Price> GetPricesByTourId(int tourId)
+        public IList<Price> GetPricesByTourId(int tourId, STATUS status = STATUS.ALL)
         {
-            return _context.Prices.Where(m => m.TourId.Equals(tourId)).ToList();
+
+            var res = _context.Prices.Where(m => m.TourId.Equals(tourId)).ToList();
+            if (status == STATUS.ALL) return res;
+            else
+            {
+                return res.Where(m => m.Status.Equals(status)).ToList();
+            }
         }
         public Price GetPrice(int tourId, int priceId)
         {
             var prices = _context.Prices.Where(m => m.Id.Equals(priceId) && m.TourId.Equals(tourId)).ToList();
-            if (prices != null && prices.Count() != 0)
+            if (prices == null || !prices.Any())
             {
                 return prices.First();
             }
@@ -105,22 +127,70 @@ namespace Infrastructure.Repos
 
 
 
-        //status
-        public new void Activate(Tour entity)
+        //manage groups
+        public IList<Group> GetGroupsByTourId(int tourId, STATUS status = STATUS.ALL)
         {
-            this.UpdateStatus(entity, STATUS.AVAILABLE); 
+            var tour = this.GetBy(tourId);
+            if(tour.Groups == null || !tour.Groups.Any())
+            {
+                return null;
+            }
+            return tour.Groups;
         }
 
-        public new void Disable(Tour entity)
+        public Group GetGroup(int tourId, int groupId)
         {
-            this.UpdateStatus(entity, STATUS.DISABLED);
+            var groups = this.GetGroupsByTourId(tourId);
+            if (groups == null || !groups.Any())
+            {
+                return null;
+            }
+            return groups.Where(m => m.Id.Equals(groupId)).FirstOrDefault();
+
+        }
+        public Group AddGroup(int tourId, Group group)
+        {
+            if (this.Exists(tourId) && group.Id.Equals(tourId))
+            {
+                var tracked = _context.Set<Group>().Add(group);
+                _context.SaveChanges();
+                return tracked.Entity;
+            }
+            return null;
+        }
+        public void DeleteGroup(Group group)
+        {
+            _context.Set<Group>().Remove(group);
+            _context.SaveChanges();
+        }
+        public void UpdateGroup(Group group)
+        {
+            _context.Set<Group>().Update(group);
+            _context.SaveChanges();
+        }
+        public void DisableGroup(int tourId, int groupId)
+        {
+            var group = this.GetGroup(tourId, groupId);
+            if (group != null)
+            {
+                this.UpdateGroupStatus(group, STATUS.DISABLED);
+            }
+        }
+        public void ActivateGroup(int tourId, int groupId)
+        {
+            var group = this.GetGroup(tourId, groupId);
+            if (group != null)
+            {
+                this.UpdateGroupStatus(group, STATUS.AVAILABLE);
+            }
         }
 
-        private void UpdateStatus(Tour entity, STATUS status)
+        private void UpdateGroupStatus(Group group, STATUS status)
         {
-            entity.Status = status;
-            this.Update(entity);
+            group.Status = status;
+            _context.Groups.Update(group);
+            _context.SaveChanges();
         }
-        
+
     }
 }

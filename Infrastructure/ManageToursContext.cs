@@ -11,7 +11,7 @@ namespace Infrastructure
     {
         public ManageToursContext(DbContextOptions<ManageToursContext> options) : base(options)
         {
-
+            Database.EnsureCreated();
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -33,13 +33,11 @@ namespace Infrastructure
 
         }
 
-
         public DbSet<Tour> Tours { get; set; }
         public DbSet<TourType> TourTypes { get; set; }
         public DbSet<TourDetail> TourDetails { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<Price> Prices { get; set; }
-
         public DbSet<Job> Jobs { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Attendant> Attendants { get; set; }
