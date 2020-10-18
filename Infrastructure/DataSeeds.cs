@@ -93,6 +93,17 @@ namespace Infrastructure
 
                 context.SaveChanges();
             }
+
+            if (!context.Tours.Any())
+            {
+                context.Tours.AddRange(
+                    new Tour("Test tour 1","for testing",1),
+                    new Tour("Test tour 2", "for testing", 3)
+
+                    );
+
+                context.SaveChanges();
+            }
         }
     }
 }

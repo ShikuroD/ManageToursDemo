@@ -88,6 +88,7 @@
             this.btnEditTour.TabIndex = 0;
             this.btnEditTour.Text = "CẬP NHẬT";
             this.btnEditTour.UseVisualStyleBackColor = false;
+            this.btnEditTour.Click += new System.EventHandler(this.btnEditTour_Click);
             // 
             // btnDeleteTour
             // 
@@ -111,6 +112,7 @@
             this.btnAddTour.TabIndex = 0;
             this.btnAddTour.Text = "THÊM";
             this.btnAddTour.UseVisualStyleBackColor = false;
+            this.btnAddTour.Click += new System.EventHandler(this.btnAddTour_Click);
             // 
             // pnTourInfo
             // 
@@ -155,6 +157,7 @@
             this.btnTourDetail.TabIndex = 0;
             this.btnTourDetail.Text = "Quản lí chi tiết";
             this.btnTourDetail.UseVisualStyleBackColor = true;
+            this.btnTourDetail.Click += new System.EventHandler(this.btnTourDetail_Click);
             // 
             // btnManagePrice
             // 
@@ -312,12 +315,16 @@
             // 
             this.gridViewTour.AllowUserToAddRows = false;
             this.gridViewTour.AllowUserToDeleteRows = false;
+            this.gridViewTour.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gridViewTour.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.gridViewTour.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridViewTour.Location = new System.Drawing.Point(6, 33);
             this.gridViewTour.Name = "gridViewTour";
             this.gridViewTour.ReadOnly = true;
             this.gridViewTour.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gridViewTour.Size = new System.Drawing.Size(1226, 383);
+            this.gridViewTour.Size = new System.Drawing.Size(824, 383);
             this.gridViewTour.TabIndex = 0;
             this.gridViewTour.Text = "dataGridView1";
             // 
@@ -330,8 +337,9 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pnTourInfo);
             this.Controls.Add(this.pnTableTourButton);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "MainForm";
-            this.Text = "Traveling Tours Manager";
+            this.Text = "Quản lí tour du lịch";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.pnTableTourButton.ResumeLayout(false);
             this.pnTourInfo.ResumeLayout(false);
