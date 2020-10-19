@@ -16,7 +16,12 @@ namespace Infrastructure.Repos
         {
             _context = context;
         }
-
+        public string GetTourTypeName(int Id)
+        {
+            var res = this.GetBy(Id);
+            if (res != null) return res.Name;
+            return null;
+        }
         public new IList<TourType> GetAllByStatus(STATUS status = STATUS.ALL)
         {
             if (status == STATUS.ALL) return this.GetAll();

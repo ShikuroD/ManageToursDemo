@@ -16,6 +16,12 @@ namespace Infrastructure.Repos
             _context = context;
         }
 
+        public string GetCostTypeName(int Id)
+        {
+            var res = this.GetBy(Id);
+            if (res != null) return res.Name;
+            return null;
+        }
         public new IList<CostType> GetAllByStatus(STATUS status = STATUS.ALL)
         {
             if (status == STATUS.ALL) return this.GetAll();

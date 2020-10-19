@@ -7,5 +7,6 @@ namespace AppCore.Interfaces
 {
     public interface ICostTypeRepos : IRepository<CostType>
     {
+        string GetCostTypeName(int Id);
     }
 }

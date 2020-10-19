@@ -16,9 +16,9 @@ namespace AppCore.Interfaces
 
         //manage prices
         IList<Price> GetPricesByTourId(int tourId, STATUS status = STATUS.ALL);
-
         Price GetPrice(int tourId, int priceId);
         Price AddPrice(int tourId, Price price);
+        void UpdatePrice(int tourId, Price Price);
         void DisablePrice(int tourId, int priceId);
         void ActivatePrice(int tourId, int priceId);
 

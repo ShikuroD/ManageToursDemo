@@ -7,5 +7,6 @@ namespace AppCore.Interfaces
 {
     public interface ITourTypeRepos : IRepository<TourType>
     {
+        string GetTourTypeName(int Id);
     }
 }

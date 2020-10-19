@@ -99,6 +99,14 @@ namespace Infrastructure.Repos
             return null;
 
         }
+        public void UpdatePrice(int tourId, Price price)
+        {
+            if ((this.Exists(tourId)) && price != null && tourId.Equals(price.TourId))
+            {
+                _context.Prices.Update(price);
+                _context.SaveChanges();
+            }
+        }
         public void DisablePrice(int tourId, int priceId)
         {
             var price = this.GetPrice(tourId, priceId);

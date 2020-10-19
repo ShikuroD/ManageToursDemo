@@ -327,6 +327,7 @@
             this.gridViewTour.Size = new System.Drawing.Size(824, 383);
             this.gridViewTour.TabIndex = 0;
             this.gridViewTour.Text = "dataGridView1";
+            this.gridViewTour.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridViewTour_CellContentClick);
             // 
             // MainForm
             // 

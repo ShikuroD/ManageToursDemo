@@ -15,7 +15,12 @@ namespace Infrastructure.Repos
         {
             _context = context;
         }
-
+        public string GetJobName(int Id)
+        {
+            var res = this.GetBy(Id);
+            if (res != null) return res.Name;
+            return null;
+        }
         public new IList<Job> GetAllByStatus(STATUS status = STATUS.ALL)
         {
             if (status == STATUS.ALL) return this.GetAll();

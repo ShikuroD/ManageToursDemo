@@ -13,14 +13,24 @@ namespace Presentation.ViewModels
 
         public string TourTypeName { get; set; }
 
+        public decimal Price { get; set; }
+
+        public DateTime StartDate { get; set; }
+
+        public DateTime EndDate { get; set; }
+
         public STATUS Status { get; set; } = STATUS.AVAILABLE;
 
         public TourVM() { }
-        public TourVM(string name, string description, string tourTypeName, STATUS status = STATUS.AVAILABLE)
+        public TourVM(string name, string description, string tourTypeName, decimal price,
+            DateTime start, DateTime end, STATUS status = STATUS.AVAILABLE)
         {
             Name = name;
             Description = description;
+            StartDate = start;
+            EndDate = end;
             Status = status;
+            Price = price;
             TourTypeName = tourTypeName;
         }
     }

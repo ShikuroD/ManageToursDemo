@@ -20,9 +20,8 @@ namespace Presentation
     {
         private readonly IVMTourService _tourService;
 
-
         public TourTabVM TourTabVM { get; set; }
-        
+
         private void UseCellFormat(DataGridView dg)
         {
             dg.CellFormatting += (sender, e) =>
@@ -52,16 +51,21 @@ namespace Presentation
         {
             this.UseCellFormat(this.gridViewTour);
 
-            this.gridViewTour.Columns["Id"].HeaderText = "ID";
-            this.gridViewTour.Columns["Name"].HeaderText = "Tên";
-            this.gridViewTour.Columns["TourTypeId"].HeaderText = "Loại";
-            this.gridViewTour.Columns["Description"].HeaderText = "Mô tả";
-            this.gridViewTour.Columns["Status"].HeaderText = "Trạng thái";
-
             this.gridViewTour.Columns["Id"].DisplayIndex = 0;
-            this.gridViewTour.Columns["Name"].DisplayIndex = 2;
-            this.gridViewTour.Columns["TourTypeId"].DisplayIndex = 1;
+            this.gridViewTour.Columns["Id"].HeaderText = "ID";
+            this.gridViewTour.Columns["Id"].Width = 40;
+
+            this.gridViewTour.Columns["Name"].DisplayIndex = 1;
+            this.gridViewTour.Columns["Name"].HeaderText = "Tên";
+
+            this.gridViewTour.Columns["TourTypeId"].DisplayIndex = 2;
+            this.gridViewTour.Columns["TourTypeId"].HeaderText = "Loại";
+
             this.gridViewTour.Columns["Description"].DisplayIndex = 3;
+            this.gridViewTour.Columns["Description"].HeaderText = "Mô tả";
+
+            this.gridViewTour.Columns["Status"].HeaderText = "Trạng thái";
+            this.gridViewTour.Columns["Status"].Width = 50;
 
 
             this.gridViewTour.Columns["Prices"].Visible = false;
@@ -76,11 +80,11 @@ namespace Presentation
             this.gridViewTour.DataSource = src;
             this.SetUpTourGridView();
 
-            foreach(var t in TourTabVM.Tours)
+            foreach (var t in TourTabVM.Tours)
             {
                 src.Add(t);
             }
-            
+
         }
         public MainForm(IVMTourService tours)
         {
@@ -111,6 +115,11 @@ namespace Presentation
 
             if (res) MessageBox.Show("yes please");
             else MessageBox.Show("no lol");
+        }
+
+        private void gridViewTour_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

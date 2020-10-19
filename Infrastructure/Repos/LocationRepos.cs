@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 
 using AppCore;
@@ -15,6 +16,12 @@ namespace Infrastructure.Repos
         public LocationRepos(ManageToursContext context) : base(context)
         {
             _context = context;
+        }
+        public string GetTourTypeName(int Id)
+        {
+            var res = this.GetBy(Id);
+            if (res != null) return res.Name;
+            return null;
         }
 
         public new IList<Location> GetAllByStatus(STATUS status = STATUS.ALL)
