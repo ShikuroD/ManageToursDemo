@@ -9,7 +9,7 @@ namespace Infrastructure
         public ManageToursContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<ManageToursContext>();
-            optionsBuilder.UseSqlite("Data Source=tours.db");
+            optionsBuilder.UseSqlite($"Data Source=tours.db");
 
             return new ManageToursContext(optionsBuilder.Options);
         }

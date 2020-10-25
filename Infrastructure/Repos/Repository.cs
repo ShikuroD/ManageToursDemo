@@ -6,6 +6,8 @@ using System.Text;
 using AppCore.Interfaces;
 using AppCore;
 using System.Linq;
+using System.Net.Http.Headers;
+using AppCore.Models;
 
 namespace Infrastructure.Repos
 {

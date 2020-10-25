@@ -17,7 +17,7 @@ namespace Infrastructure.Repos
         {
             _context = context;
         }
-        public string GetTourTypeName(int Id)
+        public string GetLocationName(int Id)
         {
             var res = this.GetBy(Id);
             if (res != null) return res.Name;
