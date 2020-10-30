@@ -73,8 +73,8 @@ namespace Presentation
             //add vm services
             services.AddTransient<IVMTourService, VMTourService>();
 
-            //services.AddDbContext<ManageToursContext>(options => options.UseSqlite($"Data Source=tours.db", x => x.MigrationsAssembly("Presentation.Migrations")));
-            services.AddDbContext<ManageToursContext>(options => options.UseSqlite($"Data Source=D:\\Code\\Visual Studio\\ManageToursDemo\\ManageToursDemo\\Presentation\\tours.db", x => x.MigrationsAssembly("Presentation.Migrations")));
+            services.AddDbContext<ManageToursContext>(options => options.UseSqlite($"Data Source=tours.db", x => x.MigrationsAssembly("Presentation.Migrations")));
+            //services.AddDbContext<ManageToursContext>(options => options.UseSqlite($"Data Source=D:\\Code\\Visual Studio\\ManageToursDemo\\ManageToursDemo\\Presentation\\tours.db", x => x.MigrationsAssembly("Presentation.Migrations")));
             //services.AddDbContext<ManageToursContext>(options => options.UseSqlite($"..\\ManageToursDemo\\Presentation\\tours.db", x => x.MigrationsAssembly("Presentation.Migrations")));
             ServiceProvider = services.BuildServiceProvider();
         }

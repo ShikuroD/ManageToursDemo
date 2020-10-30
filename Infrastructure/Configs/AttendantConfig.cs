@@ -16,6 +16,10 @@ namespace Infrastructure.Configs
 
             builder.HasIndex(m => new { m.GroupId, m.EmployeeId}).IsUnique();
 
+            builder.HasOne<Job>(m => m.Job)
+                .WithMany()
+                .HasForeignKey(m => m.JobId);
+
         }
     }
 }

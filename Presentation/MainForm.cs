@@ -4,6 +4,7 @@ using AppCore.Models;
 using AppCore.Services;
 using Microsoft.Extensions.Logging;
 using Presentation.ViewModels;
+using Presentation.ViewModels.DataTables;
 using Presentation.VMServices;
 using System;
 using System.Collections.Generic;
@@ -23,17 +24,16 @@ namespace Presentation
         private readonly IVMTourService _tourService;
         private readonly IUnitOfWork _unitOfWork;
 
-        public TourTabVM TourTabVM { get; set; }
-
-        
+        private IList<Tour> _tours;
+        private IList<TourType> _tourTypes;
+        private IList<Location> _locations;
         
         private void SetUpTourGridView()
         {
-            //this.UseCellFormat(this.gridViewTour);
-
+            
             this.gridViewTour.Columns["Id"].DisplayIndex = 0;
             this.gridViewTour.Columns["Id"].HeaderText = "ID";
-            this.gridViewTour.Columns["Id"].Width = 40;
+            this.gridViewTour.Columns["Id"].Width = 30;
 
             this.gridViewTour.Columns["Name"].DisplayIndex = 1;
             this.gridViewTour.Columns["Name"].HeaderText = "Tên";
@@ -47,77 +47,66 @@ namespace Presentation
 
             this.gridViewTour.Columns["StatusName"].DisplayIndex = 4;
             this.gridViewTour.Columns["StatusName"].HeaderText = "Trạng thái";
-            this.gridViewTour.Columns["StatusName"].Width = 50;
+            this.gridViewTour.Columns["StatusName"].Width = 30;
 
             this.gridViewTour.Columns["TourTypeId"].Visible = false;
-            this.gridViewTour.Columns["Status"].Visible = false;
-            
+            this.gridViewTour.Columns["Status"].Visible = false;  
         }
-        private DataTable GetTourTable()
+        private void SetUpTourDetailGridView()
         {
-            DataTable tab = new DataTable();
-            tab.Columns.Add("ID", typeof(int));
-            tab.Columns.Add("Name", typeof(string));
-            tab.Columns.Add("TourTypeId", typeof(int));
-            tab.Columns.Add("TourTypeName", typeof(string));
-            tab.Columns.Add("Description", typeof(string));
-            tab.Columns.Add("Status", typeof(STATUS));
-            tab.Columns.Add("StatusName", typeof(string));
 
-            return tab;
-        }
-        private void FillTourTable(DataTable tab)
-        {
-            foreach (var t in TourTabVM.Tours)
-            {
-                var tourTypeName = TourTabVM.TourTypes.Where(m => m.Id.Equals(t.TourTypeId)).First().Name;
-                var statusName = t.Status == STATUS.AVAILABLE ? "O" : "X";
-                tab.Rows.Add(t.Id, t.Name, t.TourTypeId, tourTypeName, t.Description, t.Status, statusName);
-            }
+            this.gridViewTourDetail.Columns["Id"].DisplayIndex = 0;
+            this.gridViewTourDetail.Columns["Id"].HeaderText = "ID";
+            this.gridViewTourDetail.Columns["Id"].Width = 30;
+
+            this.gridViewTourDetail.Columns["Name"].DisplayIndex = 1;
+            this.gridViewTourDetail.Columns["Name"].HeaderText = "Địa điểm";
+
         }
         private void LoadTourGridView()
         {
-            //BindingSource src = new BindingSource();
-            //src.DataSource = typeof(Tour);
-            DataTable tab = GetTourTable();
-            this.FillTourTable(tab);
-            this.gridViewTour.DataSource = tab;
-            this.SetUpTourGridView();
+            TblTourManage tblTour = new TblTourManage(_tours, _tourTypes);
+            
+            this.gridViewTour.DataSource = tblTour;
+            //this.SetUpTourGridView();
+        }
+        private void LoadTourDetailGridView(IList<TourDetail> arr)
+        {
+            TblSelectClass tblTourDetail = new TblSelectClass(_locations, arr);
+
+            this.gridViewTourDetail.DataSource = tblTourDetail;
+            //this.SetUpTourDetailGridView();
         }
         private void EnableButton(bool b)
         {
+            btnChangeTourStatus.Enabled = b;
+            btnDeleteTour.Enabled = b;
             btnEditTour.Enabled = b;
-            btnManageGroup.Enabled = b;
-            btnManagePrice.Enabled = b;
-            btnTourDetail.Enabled = b;
         }
         private void LoadTourInfo()
         {
             if(this.gridViewTour.SelectedRows.Count > 0)
             {
                 var row = this.gridViewTour.SelectedRows[0];
-                this.txtTourId.Text = row.Cells["Id"].Value.ToString();
-                this.txtTourName.Text = row.Cells["Name"].Value.ToString();
-                this.txtTourType.Text = row.Cells["TourTypeName"].Value.ToString();
-                this.txtDescription.Text = row.Cells["Description"].Value.ToString();
 
                 if( (STATUS)row.Cells["Status"].Value == STATUS.AVAILABLE)
                 {
                     btnChangeTourStatus.Text = "ẨN";
-                    btnChangeTourStatus.Enabled = true;
-                    btnDeleteTour.Enabled = true;
                     this.EnableButton(true);
                 }
                 else
                 {
                     btnChangeTourStatus.Text = "HIỆN";
-                    btnChangeTourStatus.Enabled = true;
-                    btnDeleteTour.Enabled = true;
-                    this.EnableButton(false);
+                    this.EnableButton(true);
                 }
+
+                var dets = _unitOfWork.Tours.GetTourDetailsByTourId((Int32)row.Cells["Id"].Value);
+                this.LoadTourDetailGridView(dets);
             }
-            
-            
+        }
+        private void LoadComboToutType(IList<TourType> arr)
+        {
+
         }
         public MainForm(IUnitOfWork unitOfWork, IVMTourService tours)
         {
@@ -128,9 +117,22 @@ namespace Presentation
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
-            this.TourTabVM = _tourService.LoadTourTabData();
+            this._tours = _unitOfWork.Tours.GetAll();
+            this._tourTypes = _unitOfWork.TourTypes.GetAll();
+            this._locations = _unitOfWork.Locations.GetAll();
+
+            var combo = _tourTypes.Cast<SelectClass>().ToList();
+            this.comboTourType.DataSource = new TblSelectClass(combo);
+            this.comboTourType.DisplayMember = "Name";
+
+            var t = this.comboTourType.SelectedItem as TourType;
+            
+
             this.LoadTourGridView();
             this.LoadTourInfo();
+        
+            this.SetUpTourGridView();
+            this.SetUpTourDetailGridView();
         }
 
         private void btnTourDetail_Click(object sender, EventArgs e)
@@ -156,6 +158,7 @@ namespace Presentation
             var index = gridViewTour.SelectedRows[0].Index;
             var row = gridViewTour.SelectedRows[0];
             var tour = _unitOfWork.Tours.GetBy(Int32.Parse(row.Cells[0].Value.ToString()));
+
             if (btnChangeTourStatus.Text.Equals("ẨN"))
             {
                 _unitOfWork.Tours.Disable(tour);
@@ -164,7 +167,8 @@ namespace Presentation
             {
                 _unitOfWork.Tours.Activate(tour);
             }
-            this.TourTabVM = _tourService.LoadTourTabData();
+
+            this._tours = _unitOfWork.Tours.GetAll();
             this.LoadTourGridView();
             gridViewTour.ClearSelection();
             gridViewTour.Rows[index].Selected = true;
@@ -183,6 +187,9 @@ namespace Presentation
             this.LoadTourInfo();
         }
 
-        
+        private void gridViewTour_Leave(object sender, EventArgs e)
+        {
+            this.EnableButton(false);
+        }
     }
 }

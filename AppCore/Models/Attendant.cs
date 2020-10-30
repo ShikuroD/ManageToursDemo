@@ -11,17 +11,18 @@ namespace AppCore.Models
         public Group Group { get; set; }
         public int EmployeeId { get; set; }
         public Employee Employee { get; set; }
+        public int JobId { get; set; }
+        public Job Job { get; set; }
 
         public Attendant()
         {
         }
 
-        public Attendant(int groupId, Group group, int employeeId, Employee employee)
+        public Attendant(int groupId, int employeeId, int jobId)
         {
             GroupId = groupId;
-            Group = group;
             EmployeeId = employeeId;
-            Employee = employee;
+            JobId = jobId;
         }
     }
 }

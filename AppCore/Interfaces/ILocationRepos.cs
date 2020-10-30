@@ -8,5 +8,6 @@ namespace AppCore.Interfaces
     public interface ILocationRepos : IRepository<Location>
     {
         string GetLocationName(int Id);
+        
     }
 }

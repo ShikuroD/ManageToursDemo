@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infrastructure.Migrations
 {
-    public partial class Init : Migration
+    public partial class initiation : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -37,6 +37,24 @@ namespace Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Customers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Employees",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(maxLength: 30, nullable: false),
+                    Sex = table.Column<int>(nullable: false),
+                    IdentityCode = table.Column<string>(maxLength: 10, nullable: false),
+                    PhoneNumber = table.Column<string>(maxLength: 10, nullable: false),
+                    Address = table.Column<string>(maxLength: 60, nullable: true),
+                    Status = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Employees", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -79,31 +97,6 @@ namespace Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TourTypes", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Employees",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(maxLength: 30, nullable: false),
-                    Sex = table.Column<int>(nullable: false),
-                    IdentityCode = table.Column<string>(maxLength: 10, nullable: false),
-                    PhoneNumber = table.Column<string>(maxLength: 10, nullable: false),
-                    Address = table.Column<string>(maxLength: 60, nullable: true),
-                    JobId = table.Column<int>(nullable: false),
-                    Status = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Employees", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Employees_Jobs_JobId",
-                        column: x => x.JobId,
-                        principalTable: "Jobs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -210,7 +203,8 @@ namespace Infrastructure.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     GroupId = table.Column<int>(nullable: false),
-                    EmployeeId = table.Column<int>(nullable: false)
+                    EmployeeId = table.Column<int>(nullable: false),
+                    JobId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -225,6 +219,12 @@ namespace Infrastructure.Migrations
                         name: "FK_Attendants_Groups_GroupId",
                         column: x => x.GroupId,
                         principalTable: "Groups",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Attendants_Jobs_JobId",
+                        column: x => x.JobId,
+                        principalTable: "Jobs",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -291,6 +291,11 @@ namespace Infrastructure.Migrations
                 column: "EmployeeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Attendants_JobId",
+                table: "Attendants",
+                column: "JobId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Attendants_GroupId_EmployeeId",
                 table: "Attendants",
                 columns: new[] { "GroupId", "EmployeeId" },
@@ -317,11 +322,6 @@ namespace Infrastructure.Migrations
                 table: "Employees",
                 column: "IdentityCode",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Employees_JobId",
-                table: "Employees",
-                column: "JobId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_GroupDetails_CustomerId",
@@ -382,6 +382,9 @@ namespace Infrastructure.Migrations
                 name: "Employees");
 
             migrationBuilder.DropTable(
+                name: "Jobs");
+
+            migrationBuilder.DropTable(
                 name: "CostTypes");
 
             migrationBuilder.DropTable(
@@ -392,9 +395,6 @@ namespace Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Locations");
-
-            migrationBuilder.DropTable(
-                name: "Jobs");
 
             migrationBuilder.DropTable(
                 name: "Tours");

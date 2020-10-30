@@ -82,12 +82,12 @@ namespace Infrastructure
             if (!context.Employees.Any())
             {
                 context.Employees.AddRange(
-                    new Employee("Nhân Viên A", SEX.MALE, "0123456789", "0123456789", "456/84/12 Somewhere, Earth",1),
-                    new Employee("Nhân viên B", SEX.FEMALE, "0124576711", "0123456789", "456/84/12 Somewhere, Earth",2),
-                    new Employee("Nhân viên C", SEX.MALE, "0123473712", "0123456789", "456/84/12 Somewhere, Earth",4),
-                    new Employee("Nhân viên D", SEX.FEMALE, "0123274724", "0123456789", "456/84/12 Somewhere, Earth",2),
-                    new Employee("Nhân viên E", SEX.FEMALE, "0184356746", "0123456789", "456/84/12 Somewhere, Earth",3),
-                    new Employee("Nhân viên F", SEX.MALE, "0123282714", "0123456789", "456/84/12 Somewhere, Earth",1)
+                    new Employee("Nhân Viên A", SEX.MALE, "0123456789", "0123456789", "456/84/12 Somewhere, Earth"),
+                    new Employee("Nhân viên B", SEX.FEMALE, "0124576711", "0123456789", "456/84/12 Somewhere, Earth"),
+                    new Employee("Nhân viên C", SEX.MALE, "0123473712", "0123456789", "456/84/12 Somewhere, Earth"),
+                    new Employee("Nhân viên D", SEX.FEMALE, "0123274724", "0123456789", "456/84/12 Somewhere, Earth"),
+                    new Employee("Nhân viên E", SEX.FEMALE, "0184356746", "0123456789", "456/84/12 Somewhere, Earth"),
+                    new Employee("Nhân viên F", SEX.MALE, "0123282714", "0123456789", "456/84/12 Somewhere, Earth")
                     
                     );
 
@@ -97,8 +97,27 @@ namespace Infrastructure
             if (!context.Tours.Any())
             {
                 context.Tours.AddRange(
-                    new Tour("Test tour 1","for testing",1),
-                    new Tour("Test tour 2", "for testing", 3)
+                    new Tour("Test tour 1","for testing", 1),
+                    new Tour("Test tour 2", "for testing", 3),
+                    new Tour("Test tour 3", "for testing long descripton asdadsdsdaasdadasdasd sdf gfdg", 3)
+
+                    );
+
+                context.SaveChanges();
+            }
+
+            if (!context.TourDetails.Any())
+            {
+                context.TourDetails.AddRange(
+                    new TourDetail(1,1,1),
+                    new TourDetail(1, 3, 2),
+                    new TourDetail(1, 2, 3),
+                    new TourDetail(1, 1, 4),
+                    new TourDetail(2, 4, 1),
+                    new TourDetail(2, 2, 3),
+                    new TourDetail(2, 3, 2),
+                    new TourDetail(3, 1, 1),
+                    new TourDetail(3, 2, 2)
 
                     );
 

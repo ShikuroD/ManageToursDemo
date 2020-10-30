@@ -16,6 +16,7 @@ namespace Infrastructure
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            
             builder.ApplyConfiguration(new TourConfig());
             builder.ApplyConfiguration(new TourTypeConfig());
             builder.ApplyConfiguration(new TourDetailConfig());

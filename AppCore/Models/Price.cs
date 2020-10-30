@@ -8,6 +8,8 @@ namespace AppCore.Models
     public class Price
     {
         public int Id { get; set; }
+
+        public string Name { get; set; }
         public int TourId { get; set; }
         public Tour Tour { get;set; }
 
@@ -26,8 +28,9 @@ namespace AppCore.Models
         {
         }
 
-        public Price(int tourId, decimal value, DateTime startDate, DateTime endDate, STATUS status = STATUS.AVAILABLE)
+        public Price(string name, int tourId, decimal value, DateTime startDate, DateTime endDate, STATUS status = STATUS.AVAILABLE)
         {
+            Name = name;
             TourId = tourId;
             Value = value;
             StartDate = startDate;

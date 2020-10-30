@@ -14,7 +14,7 @@ namespace Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.8");
+                .HasAnnotation("ProductVersion", "3.1.9");
 
             modelBuilder.Entity("AppCore.Models.Attendant", b =>
                 {
@@ -28,9 +28,14 @@ namespace Infrastructure.Migrations
                     b.Property<int>("GroupId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("JobId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
                     b.HasIndex("EmployeeId");
+
+                    b.HasIndex("JobId");
 
                     b.HasIndex("GroupId", "EmployeeId")
                         .IsUnique();
@@ -154,9 +159,6 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(10)
                         .HasAnnotation("MinLength", 10);
 
-                    b.Property<int>("JobId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT")
@@ -179,8 +181,6 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("IdentityCode")
                         .IsUnique();
-
-                    b.HasIndex("JobId");
 
                     b.ToTable("Employees");
                 });
@@ -401,6 +401,12 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("AppCore.Models.Job", "Job")
+                        .WithMany()
+                        .HasForeignKey("JobId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("AppCore.Models.Cost", b =>
@@ -414,15 +420,6 @@ namespace Infrastructure.Migrations
                     b.HasOne("AppCore.Models.Group", "Group")
                         .WithMany("Costs")
                         .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("AppCore.Models.Employee", b =>
-                {
-                    b.HasOne("AppCore.Models.Job", "Job")
-                        .WithMany()
-                        .HasForeignKey("JobId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -8,5 +8,6 @@ namespace AppCore.Interfaces
     public interface IJobRepos : IRepository<Job>
     {
         string GetJobName(int Id);
+        
     }
 }

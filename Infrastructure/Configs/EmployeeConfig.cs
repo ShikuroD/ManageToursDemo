@@ -14,10 +14,6 @@ namespace Infrastructure.Configs
             builder.HasKey(m => m.Id);
             builder.Property(m => m.Id).ValueGeneratedOnAdd();
 
-            builder.HasOne<Job>(m => m.Job)
-                .WithMany()
-                .HasForeignKey(m => m.JobId);
-
             builder.HasMany<Attendant>()
                 .WithOne(t => t.Employee)
                 .HasForeignKey(t => t.EmployeeId);
