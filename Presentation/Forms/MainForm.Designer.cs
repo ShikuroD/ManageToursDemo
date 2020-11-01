@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnEditTour = new System.Windows.Forms.Button();
+            this.btnEditTourDetail = new System.Windows.Forms.Button();
             this.btnDeleteTour = new System.Windows.Forms.Button();
             this.btnChangeTourStatus = new System.Windows.Forms.Button();
             this.btnAddTour = new System.Windows.Forms.Button();
@@ -41,9 +41,11 @@
             this.btnManageCustomer = new System.Windows.Forms.Button();
             this.btnManageEmployee = new System.Windows.Forms.Button();
             this.pnTour = new System.Windows.Forms.GroupBox();
+            this.btnTourSearch = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.comboTourType = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnEditTourGroup = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.gridViewTourDetail = new System.Windows.Forms.DataGridView();
             this.txtTourSearch = new System.Windows.Forms.TextBox();
@@ -60,35 +62,36 @@
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // btnEditTour
+            // btnEditTourDetail
             // 
-            this.btnEditTour.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.btnEditTour.Enabled = false;
-            this.btnEditTour.Location = new System.Drawing.Point(3, 3);
-            this.btnEditTour.Name = "btnEditTour";
-            this.btnEditTour.Size = new System.Drawing.Size(194, 60);
-            this.btnEditTour.TabIndex = 0;
-            this.btnEditTour.Text = "CẬP NHẬT CHI TIẾT";
-            this.btnEditTour.UseVisualStyleBackColor = false;
-            this.btnEditTour.Click += new System.EventHandler(this.btnEditTour_Click);
+            this.btnEditTourDetail.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.btnEditTourDetail.Enabled = false;
+            this.btnEditTourDetail.Location = new System.Drawing.Point(3, 3);
+            this.btnEditTourDetail.Name = "btnEditTourDetail";
+            this.btnEditTourDetail.Size = new System.Drawing.Size(194, 60);
+            this.btnEditTourDetail.TabIndex = 0;
+            this.btnEditTourDetail.Text = "CẬP NHẬT CHI TIẾT";
+            this.btnEditTourDetail.UseVisualStyleBackColor = false;
+            this.btnEditTourDetail.Click += new System.EventHandler(this.btnEditTour_Click);
             // 
             // btnDeleteTour
             // 
             this.btnDeleteTour.BackColor = System.Drawing.SystemColors.ControlLight;
             this.btnDeleteTour.Enabled = false;
             this.btnDeleteTour.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnDeleteTour.Location = new System.Drawing.Point(3, 135);
+            this.btnDeleteTour.Location = new System.Drawing.Point(3, 201);
             this.btnDeleteTour.Name = "btnDeleteTour";
-            this.btnDeleteTour.Size = new System.Drawing.Size(194, 62);
+            this.btnDeleteTour.Size = new System.Drawing.Size(194, 61);
             this.btnDeleteTour.TabIndex = 0;
             this.btnDeleteTour.Text = "XÓA";
             this.btnDeleteTour.UseVisualStyleBackColor = false;
+            this.btnDeleteTour.Click += new System.EventHandler(this.btnDeleteTour_Click);
             // 
             // btnChangeTourStatus
             // 
             this.btnChangeTourStatus.BackColor = System.Drawing.SystemColors.ControlLight;
             this.btnChangeTourStatus.Enabled = false;
-            this.btnChangeTourStatus.Location = new System.Drawing.Point(3, 69);
+            this.btnChangeTourStatus.Location = new System.Drawing.Point(3, 135);
             this.btnChangeTourStatus.Name = "btnChangeTourStatus";
             this.btnChangeTourStatus.Size = new System.Drawing.Size(194, 60);
             this.btnChangeTourStatus.TabIndex = 1;
@@ -118,7 +121,7 @@
             this.groupBox1.Size = new System.Drawing.Size(279, 338);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Quán lí thông tin hệ thống";
+            this.groupBox1.Text = "Quán lí danh sách";
             // 
             // tableLayoutPanel2
             // 
@@ -204,6 +207,7 @@
             // 
             // pnTour
             // 
+            this.pnTour.Controls.Add(this.btnTourSearch);
             this.pnTour.Controls.Add(this.label1);
             this.pnTour.Controls.Add(this.comboTourType);
             this.pnTour.Controls.Add(this.tableLayoutPanel3);
@@ -219,10 +223,20 @@
             this.pnTour.TabStop = false;
             this.pnTour.Text = "Danh sách tour";
             // 
+            // btnTourSearch
+            // 
+            this.btnTourSearch.Location = new System.Drawing.Point(340, 32);
+            this.btnTourSearch.Name = "btnTourSearch";
+            this.btnTourSearch.Size = new System.Drawing.Size(75, 23);
+            this.btnTourSearch.TabIndex = 7;
+            this.btnTourSearch.Text = "Tìm";
+            this.btnTourSearch.UseVisualStyleBackColor = true;
+            this.btnTourSearch.Click += new System.EventHandler(this.btnTourSearch_Click);
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(418, 37);
+            this.label1.Location = new System.Drawing.Point(463, 37);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(57, 15);
             this.label1.TabIndex = 6;
@@ -231,26 +245,38 @@
             // comboTourType
             // 
             this.comboTourType.FormattingEnabled = true;
-            this.comboTourType.Location = new System.Drawing.Point(481, 32);
+            this.comboTourType.Location = new System.Drawing.Point(526, 32);
             this.comboTourType.Name = "comboTourType";
-            this.comboTourType.Size = new System.Drawing.Size(197, 23);
+            this.comboTourType.Size = new System.Drawing.Size(169, 23);
             this.comboTourType.TabIndex = 5;
             // 
             // tableLayoutPanel3
             // 
             this.tableLayoutPanel3.ColumnCount = 1;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Controls.Add(this.btnDeleteTour, 0, 2);
-            this.tableLayoutPanel3.Controls.Add(this.btnEditTour, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.btnChangeTourStatus, 0, 1);
+            this.tableLayoutPanel3.Controls.Add(this.btnEditTourDetail, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.btnDeleteTour, 0, 3);
+            this.tableLayoutPanel3.Controls.Add(this.btnChangeTourStatus, 0, 2);
+            this.tableLayoutPanel3.Controls.Add(this.btnEditTourGroup, 0, 1);
             this.tableLayoutPanel3.Location = new System.Drawing.Point(715, 386);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 3;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(200, 200);
+            this.tableLayoutPanel3.RowCount = 4;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(200, 265);
             this.tableLayoutPanel3.TabIndex = 4;
+            // 
+            // btnEditTourGroup
+            // 
+            this.btnEditTourGroup.Enabled = false;
+            this.btnEditTourGroup.Location = new System.Drawing.Point(3, 69);
+            this.btnEditTourGroup.Name = "btnEditTourGroup";
+            this.btnEditTourGroup.Size = new System.Drawing.Size(194, 60);
+            this.btnEditTourGroup.TabIndex = 2;
+            this.btnEditTourGroup.Text = "QUẢN LÍ ĐOÀN";
+            this.btnEditTourGroup.UseVisualStyleBackColor = true;
             // 
             // groupBox2
             // 
@@ -269,6 +295,7 @@
             this.gridViewTourDetail.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.gridViewTourDetail.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.gridViewTourDetail.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridViewTourDetail.Enabled = false;
             this.gridViewTourDetail.Location = new System.Drawing.Point(8, 26);
             this.gridViewTourDetail.MultiSelect = false;
             this.gridViewTourDetail.Name = "gridViewTourDetail";
@@ -283,7 +310,7 @@
             // 
             this.txtTourSearch.Location = new System.Drawing.Point(90, 32);
             this.txtTourSearch.Name = "txtTourSearch";
-            this.txtTourSearch.Size = new System.Drawing.Size(284, 23);
+            this.txtTourSearch.Size = new System.Drawing.Size(244, 23);
             this.txtTourSearch.TabIndex = 2;
             // 
             // label5
@@ -314,9 +341,7 @@
             this.gridViewTour.Size = new System.Drawing.Size(696, 508);
             this.gridViewTour.TabIndex = 0;
             this.gridViewTour.Text = "dataGridView1";
-            this.gridViewTour.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridViewTour_CellContentClick);
             this.gridViewTour.Click += new System.EventHandler(this.gridViewTour_Click);
-            this.gridViewTour.Leave += new System.EventHandler(this.gridViewTour_Leave);
             // 
             // panel1
             // 
@@ -352,7 +377,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button btnEditTour;
+        private System.Windows.Forms.Button btnEditTourDetail;
         private System.Windows.Forms.Button btnDeleteTour;
         private System.Windows.Forms.Button btnAddTour;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -374,5 +399,7 @@
         private System.Windows.Forms.DataGridView gridViewTourDetail;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboTourType;
+        private System.Windows.Forms.Button btnTourSearch;
+        private System.Windows.Forms.Button btnEditTourGroup;
     }
 }
