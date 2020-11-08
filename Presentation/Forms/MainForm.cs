@@ -111,14 +111,7 @@ namespace Presentation
         private void LoadComboTourType()
         {
             var combo = _tourTypes.Cast<SelectClass>().ToList();
-            combo.Add(new SelectClass
-            {
-                Id = 0,
-                Name = "Tất cả",
-                Status = STATUS.AVAILABLE
-            });
-            this.comboTourType.DataSource = new TblSelectClass(combo.OrderBy(m => m.Id).ToList());
-            this.comboTourType.DisplayMember = "Name";
+            this.comboTourType = new ComboSelectClass<TourType>(_tourTypes, true);
         }
 
         private void LoadAll()
