@@ -11,6 +11,11 @@ namespace AppCore.Interfaces
         ITourRepos Tours { get; }
         ITourTypeRepos TourTypes { get; }
 
+        ICostTypeRepos CostTypes { get; }
+        IEmployeeRepos Employees { get; }
+        ICustomerRepos Customers { get; }
+        IJobRepos Jobs { get; }
+
         int Complete();
     }
 }

@@ -154,6 +154,7 @@
             this.btnManageCostType.TabIndex = 2;
             this.btnManageCostType.Text = "LOẠI CHI PHÍ";
             this.btnManageCostType.UseVisualStyleBackColor = true;
+            this.btnManageCostType.Click += new System.EventHandler(this.btnManageCostType_Click);
             // 
             // btnManageJob
             // 
@@ -164,6 +165,7 @@
             this.btnManageJob.TabIndex = 5;
             this.btnManageJob.Text = "CÔNG VIỆC";
             this.btnManageJob.UseVisualStyleBackColor = true;
+            this.btnManageJob.Click += new System.EventHandler(this.btnManageJob_Click);
             // 
             // btnManageTourType
             // 
@@ -174,6 +176,7 @@
             this.btnManageTourType.TabIndex = 1;
             this.btnManageTourType.Text = "LOẠI TOUR";
             this.btnManageTourType.UseVisualStyleBackColor = true;
+            this.btnManageTourType.Click += new System.EventHandler(this.btnManageTourType_Click);
             // 
             // btnManageLocation
             // 
@@ -184,6 +187,7 @@
             this.btnManageLocation.TabIndex = 0;
             this.btnManageLocation.Text = "ĐỊA ĐIỂM";
             this.btnManageLocation.UseVisualStyleBackColor = true;
+            this.btnManageLocation.Click += new System.EventHandler(this.btnManageLocation_Click);
             // 
             // btnManageCustomer
             // 

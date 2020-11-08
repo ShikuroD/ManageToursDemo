@@ -3,6 +3,7 @@ using AppCore.Interfaces;
 using AppCore.Models;
 using AppCore.Services;
 using Microsoft.Extensions.Logging;
+using Presentation.Forms;
 using Presentation.ViewModels;
 using Presentation.ViewModels.DataTables;
 using Presentation.VMServices;
@@ -225,6 +226,24 @@ namespace Presentation
             LoadAll();
         }
 
-        
+        private void btnManageLocation_Click(object sender, EventArgs e)
+        {
+            GenericForm<Location> dialog = new GenericForm<Location>(_unitOfWork);
+        }
+
+        private void btnManageTourType_Click(object sender, EventArgs e)
+        {
+            GenericForm<TourType> dialog = new GenericForm<TourType>(_unitOfWork);
+        }
+
+        private void btnManageCostType_Click(object sender, EventArgs e)
+        {
+            GenericForm<CostType> dialog = new GenericForm<CostType>(_unitOfWork);
+        }
+
+        private void btnManageJob_Click(object sender, EventArgs e)
+        {
+            GenericForm<Job> dialog = new GenericForm<Job>(_unitOfWork);
+        }
     }
 }
