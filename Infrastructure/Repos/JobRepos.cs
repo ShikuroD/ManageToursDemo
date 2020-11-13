@@ -29,5 +29,21 @@ namespace Infrastructure.Repos
                 return _context.Set<Job>().Where(m => m.Status == status).ToList();
             }
         }
+
+        public new void Activate(Job entity)
+        {
+            this.UpdateStatus(entity, STATUS.AVAILABLE);
+        }
+
+        public new void Disable(Job entity)
+        {
+            this.UpdateStatus(entity, STATUS.DISABLED);
+        }
+
+        private void UpdateStatus(Job entity, STATUS status)
+        {
+            entity.Status = status;
+            this.Update(entity);
+        }
     }
 }

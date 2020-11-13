@@ -17,10 +17,10 @@ namespace AppCore.Models
         public decimal Value { get; set; }
 
         [Display(Name = "Start date")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy HH:mm}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime StartDate { get; set; }
         [Display(Name = "End date")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy HH:mm}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime EndDate { get; set; }
 
         public STATUS Status { get; set; } = STATUS.AVAILABLE;

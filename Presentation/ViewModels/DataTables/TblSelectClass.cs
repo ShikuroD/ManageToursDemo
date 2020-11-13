@@ -14,10 +14,10 @@ namespace Presentation.ViewModels.DataTables
         {
             this.Create();
         }
-        public TblSelectClass(IList<SelectClass> arr)
+        public TblSelectClass(IList<SelectClass> arr, bool simple = false)
         {
-            this.Create();
-            this.Fill(arr);
+            this.Create(simple);
+            this.Fill(arr, simple);
         }
         public TblSelectClass(IList<Location> locs, IList<TourDetail> arr)
         {
@@ -26,12 +26,16 @@ namespace Presentation.ViewModels.DataTables
         }
 
 
-        public void Create()
+        public void Create(bool simple = false)
         {
             this.Columns.Add("Id", typeof(int));
             this.Columns.Add("Name", typeof(string));
-            this.Columns.Add("Status", typeof(STATUS));
-            this.Columns.Add("StatusName", typeof(string));
+            if (!simple)
+            {
+                this.Columns.Add("Status", typeof(STATUS));
+                this.Columns.Add("StatusName", typeof(string));
+            }
+            
         }
         public void Create_ViewTourDetail()
         {
@@ -40,13 +44,18 @@ namespace Presentation.ViewModels.DataTables
         }
 
 
-        public void Fill(IList<SelectClass> arr)
+        public void Fill(IList<SelectClass> arr, bool simple = false)
         {
             if (arr == null) return;
             foreach (var t in arr)
             {
-                var statusName = t.Status == STATUS.AVAILABLE ? "O" : "X";
-                this.Rows.Add(t.Id, t.Name, t.Status, statusName);
+                if (!simple)
+                {
+                    var statusName = t.Status == STATUS.AVAILABLE ? "O" : "X";
+                    this.Rows.Add(t.Id, t.Name, t.Status, statusName);
+                }
+                else this.Rows.Add(t.Id, t.Name);
+
             }
         }
         public void Fill_ViewTourDetail(IList<Location> locs, IList<TourDetail> arr)

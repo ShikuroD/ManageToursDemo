@@ -6,7 +6,6 @@ using Microsoft.Extensions.Logging;
 using Presentation.Forms;
 using Presentation.ViewModels;
 using Presentation.ViewModels.DataTables;
-using Presentation.VMServices;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,17 +21,22 @@ namespace Presentation
 {
     public partial class MainForm : Form
     {
-        private readonly IVMTourService _tourService;
         private readonly IUnitOfWork _unitOfWork;
 
         private IList<Tour> _tours;
         private IList<Tour> _toursForSearch;
         private IList<TourType> _tourTypes;
         private IList<Location> _locations;
+
+        private int _selectedIndex = -1;
+        private int _selectedGroupIndex = -1;
         
+        private void LoadTours()
+        {
+            _tours = _unitOfWork.Tours.GetAll();
+        }
         private void SetUpTourGridView()
         {
-            
             this.gridViewTour.Columns["Id"].DisplayIndex = 0;
             this.gridViewTour.Columns["Id"].HeaderText = "ID";
             this.gridViewTour.Columns["Id"].Width = 30;
@@ -56,21 +60,24 @@ namespace Presentation
         }
         private void SetUpTourDetailGridView()
         {
-
             this.gridViewTourDetail.Columns["Id"].DisplayIndex = 0;
             this.gridViewTourDetail.Columns["Id"].HeaderText = "ID";
             this.gridViewTourDetail.Columns["Id"].Width = 30;
 
             this.gridViewTourDetail.Columns["Name"].DisplayIndex = 1;
             this.gridViewTourDetail.Columns["Name"].HeaderText = "Địa điểm";
-
         }
-        private void LoadTourGridView()
+        private void LoadTourGridView(int selectedIndex = -1)
         {
             TblTourManage tblTour = new TblTourManage(_toursForSearch, _tourTypes);
             
             this.gridViewTour.DataSource = tblTour;
-            //this.SetUpTourGridView();
+            if (selectedIndex < 0)
+            {
+                this.gridViewTour.ClearSelection();
+                this.EnableTourButton(false);
+            }
+            else this.gridViewTour.Rows[selectedIndex].Selected = true;
         }
         private void LoadTourDetailGridView(IList<TourDetail> arr)
         {
@@ -78,57 +85,63 @@ namespace Presentation
 
             this.gridViewTourDetail.DataSource = tblTourDetail;
             this.gridViewTourDetail.ClearSelection();
-            //this.SetUpTourDetailGridView();
+            this.SetUpTourDetailGridView();
         }
-        private void EnableButton(bool b)
+        private void EnableTourButton(bool b)
         {
-            btnEditTourGroup.Enabled = b;
             btnChangeTourStatus.Enabled = b;
             btnDeleteTour.Enabled = b;
             btnEditTourDetail.Enabled = b;
+
+            btnAddGroup.Enabled = b;
         }
         private void LoadTourInfo()
         {
             if(this.gridViewTour.SelectedRows.Count > 0)
             {
                 var row = this.gridViewTour.SelectedRows[0];
-
+                _selectedIndex = row.Index;
+                
                 if( (STATUS)row.Cells["Status"].Value == STATUS.AVAILABLE)
                 {
                     btnChangeTourStatus.Text = "ẨN";
-                    this.EnableButton(true);
+                    this.EnableTourButton(true);
                 }
                 else
                 {
                     btnChangeTourStatus.Text = "HIỆN";
-                    this.EnableButton(true);
+                    this.EnableTourButton(true);
                 }
 
                 var dets = _unitOfWork.Tours.GetTourDetailsByTourId((Int32)row.Cells["Id"].Value);
                 this.LoadTourDetailGridView(dets);
             }
+            else
+            {
+                this.gridViewTourDetail.DataSource = null;
+                this.EnableTourButton(false);
+            }
         }
         private void LoadComboTourType()
         {
-            var combo = _tourTypes.Cast<SelectClass>().ToList();
-            this.comboTourType = new ComboSelectClass<TourType>(_tourTypes, true);
-        }
-
-        private void LoadAll()
-        {
-            
-            this.LoadTourGridView();
-            this.LoadTourInfo();
-
-            this.SetUpTourGridView();
-            this.SetUpTourDetailGridView();
+            IList<SelectClass> arr = _tourTypes.Cast<SelectClass>().ToList();
+            arr.Add(new SelectClass
+            {
+                Id = 0,
+                Name = "Tất cả",
+                Status = STATUS.AVAILABLE
+            });
+            comboTourType.Items.Clear();
+            comboTourType.DataSource = new TblSelectClass(arr.OrderBy(m => m.Id).ToList());
+            comboTourType.DisplayMember = "Name";
+            comboTourType.ValueMember = "Id"; 
         }
         private void SearchTour()
         {
             var search = this.txtTourSearch.Text.Trim();
             var type = this.comboTourType.SelectedIndex;
-            var res = _tours.AsQueryable();
-            if (type != 0)
+            var res = _tours.ToList().AsQueryable();
+            if (type > 0)
             {
                 res = res.Where(m => m.TourTypeId == type);
             }
@@ -138,10 +151,9 @@ namespace Presentation
             }
             _toursForSearch = res.ToList();
         }
-        public MainForm(IUnitOfWork unitOfWork, IVMTourService tours)
+        public MainForm(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _tourService = tours;
 
             InitializeComponent();
         }
@@ -153,23 +165,79 @@ namespace Presentation
             this._locations = _unitOfWork.Locations.GetAll();
 
             this.LoadComboTourType();
-            this.LoadAll();
+            this.LoadTourGridView();
+
+            
+            this.SetUpTourGridView();
+
         }
 
-        private void btnTourDetail_Click(object sender, EventArgs e)
-        {
-            
-        }
 
         private void btnEditTour_Click(object sender, EventArgs e)
         {
-            
+            var tour = _tours.Where(m => m.Id.Equals(Int32.Parse(gridViewTour.SelectedRows[0].Cells[0].Value.ToString()))).First();
+            var dialog = new TourDetailDialog(_unitOfWork, tour, _locations, _tourTypes);
+            var check = dialog.ShowDialog();
+
+            if (check.Equals(DialogResult.OK))
+            {
+                tour = dialog.returnTour();
+                _unitOfWork.Tours.Update(tour);
+                var routeArr = dialog.returnRoutes();
+                foreach(TourDetail t in routeArr)
+                {
+                    t.TourId = tour.Id;
+                }
+                _unitOfWork.Tours.UpdateTourDetails(routeArr);
+
+                var priceArr = dialog.returnPrices();
+                foreach (Price p in priceArr)
+                {
+                    var temp = _unitOfWork.Tours.GetPrice(tour.Id, p.Id);
+                    if (temp != null) _unitOfWork.Tours.DeletePrice(tour.Id, temp);
+                    p.TourId = tour.Id;
+                    _unitOfWork.Tours.AddPrice(tour.Id, p);
+                }
+
+                MessageBox.Show("Cập nhật thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadTours();
+                SearchTour();
+                LoadTourGridView(_selectedIndex);
+            }
+            dialog.Dispose();
         }
 
         private void btnAddTour_Click(object sender, EventArgs e)
         {
-            
-            
+            var dialog = new TourDetailDialog(_unitOfWork, null, _locations, _tourTypes);
+            var check = dialog.ShowDialog();
+
+            if (check.Equals(DialogResult.OK))
+            {
+                var tour = dialog.returnTour();
+                tour = _unitOfWork.Tours.Add(tour);
+                var routeArr = dialog.returnRoutes();
+                foreach (TourDetail t in routeArr)
+                {
+                    t.TourId = tour.Id;
+                }
+                _unitOfWork.Tours.UpdateTourDetails(routeArr);
+
+                var priceArr = dialog.returnPrices();
+                foreach (Price p in priceArr)
+                {
+                    var temp = _unitOfWork.Tours.GetPrice(tour.Id, p.Id);
+                    if (temp != null) _unitOfWork.Tours.DeletePrice(tour.Id, temp);
+                    p.TourId = tour.Id;
+                    _unitOfWork.Tours.AddPrice(tour.Id, p);
+                }
+
+                MessageBox.Show("Cập nhật thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadTours();
+                SearchTour();
+                LoadTourGridView(_selectedIndex);
+            }
+            dialog.Dispose();
         }
         private void btnDeleteTour_Click(object sender, EventArgs e)
         {
@@ -182,32 +250,36 @@ namespace Presentation
         }
         private void btnChangeTourStatus_Click(object sender, EventArgs e)
         {
-            var index = gridViewTour.SelectedRows[0].Index;
-            var row = gridViewTour.SelectedRows[0];
-            var tour = _unitOfWork.Tours.GetBy(Int32.Parse(row.Cells[0].Value.ToString()));
-            MessageBox.Show(index + " " + tour.Name);
-
-            if (btnChangeTourStatus.Text.Equals("ẨN"))
+            var toShow = btnChangeTourStatus.Text.Equals("ẨN") ? false : true;
+            DialogResult check;
+            if (toShow)
             {
-                _unitOfWork.Tours.Disable(tour);
+                check = MessageBox.Show("Kích hoạt tour này?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             }
-            else
-            {
-                _unitOfWork.Tours.Activate(tour);
-            }
+            else check = MessageBox.Show("Ẩn tour này?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-            this._tours = _unitOfWork.Tours.GetAll();
-            this.SearchTour();
-            this.LoadTourGridView();
-            gridViewTour.ClearSelection();
-            gridViewTour.Rows[index].Selected = true;
-            this.LoadTourInfo();
+            if(check == DialogResult.Yes)
+            {
+                var row = gridViewTour.Rows[_selectedIndex];
+                var tour = _unitOfWork.Tours.GetBy(Int32.Parse(row.Cells[0].Value.ToString()));
+
+                if (!toShow)
+                {
+                    _unitOfWork.Tours.Disable(tour);
+                }
+                else
+                {
+                    _unitOfWork.Tours.Activate(tour);
+                }
+
+                this._tours = _unitOfWork.Tours.GetAll();
+                this.SearchTour();
+                this.LoadTourGridView(_selectedIndex);
+                this.LoadTourInfo();
+            }
             
         }
-
-        
-
-        private void gridViewTour_Click(object sender, EventArgs e)
+        private void gridViewTour_SelectionChanged(object sender, EventArgs e)
         {
             this.LoadTourInfo();
         }
@@ -216,17 +288,20 @@ namespace Presentation
         private void btnTourSearch_Click(object sender, EventArgs e)
         {
             SearchTour();
-            LoadAll();
+            LoadTourGridView();
         }
 
         private void btnManageLocation_Click(object sender, EventArgs e)
         {
             GenericForm<Location> dialog = new GenericForm<Location>(_unitOfWork);
+            _locations = _unitOfWork.Locations.GetAll();
         }
 
         private void btnManageTourType_Click(object sender, EventArgs e)
         {
             GenericForm<TourType> dialog = new GenericForm<TourType>(_unitOfWork);
+            _tourTypes = _unitOfWork.TourTypes.GetAll();
+            LoadComboTourType();
         }
 
         private void btnManageCostType_Click(object sender, EventArgs e)
@@ -237,6 +312,44 @@ namespace Presentation
         private void btnManageJob_Click(object sender, EventArgs e)
         {
             GenericForm<Job> dialog = new GenericForm<Job>(_unitOfWork);
+        }
+
+        private void txtTourSearch_TextChanged(object sender, EventArgs e)
+        {
+            SearchTour();
+            LoadTourGridView();
+        }
+
+        private void comboTourType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SearchTour();
+            LoadTourGridView();
+        }
+
+        private void btnManageEmployee_Click(object sender, EventArgs e)
+        {
+            PersonForm<Employee> dialog = new PersonForm<Employee>(_unitOfWork);
+        }
+
+        private void btnManageCustomer_Click(object sender, EventArgs e)
+        {
+            PersonForm<Customer> dialog = new PersonForm<Customer>(_unitOfWork);
+        }
+
+        private void gridViewTour_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
+        {
+            var index = e.RowIndex;
+            var cell = gridViewTour.Rows[index].Cells["StatusName"];
+            if (cell.Value.ToString().Equals("O")) cell.Style.BackColor = Color.Green;
+            else cell.Style.BackColor = Color.Red;
+        }
+
+        private void gridViewGroup_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
+        {
+            var index = e.RowIndex;
+            var cell = gridViewGroup.Rows[index].Cells["StatusName"];
+            if (cell.Value.ToString().Equals("O")) cell.Style.BackColor = Color.Green;
+            else cell.Style.BackColor = Color.Red;
         }
     }
 }

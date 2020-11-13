@@ -12,8 +12,7 @@ namespace Presentaton.ViewModels
     {
         public Mapping()
         {
-            CreateMap<Tour, TourVM>();
-            CreateMap<TourVM, Tour>();
+            
         }
     }
 }

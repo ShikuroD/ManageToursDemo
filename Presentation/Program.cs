@@ -9,7 +9,6 @@ using AppCore.Interfaces;
 using Infrastructure;
 using Infrastructure.Repos;
 using AutoMapper;
-using Presentation.VMServices;
 using AppCore.Services;
 using Presentaton.ViewModels;
 
@@ -69,9 +68,6 @@ namespace Presentation
             services.AddTransient<ITourTypeService, TourTypeService>();
             services.AddTransient<ILocationService, LocationService>();
 
-
-            //add vm services
-            services.AddTransient<IVMTourService, VMTourService>();
 
             services.AddDbContext<ManageToursContext>(options => options.UseSqlite($"Data Source=tours.db", x => x.MigrationsAssembly("Presentation.Migrations")));
             //services.AddDbContext<ManageToursContext>(options => options.UseSqlite($"Data Source=D:\\Code\\Visual Studio\\ManageToursDemo\\ManageToursDemo\\Presentation\\tours.db", x => x.MigrationsAssembly("Presentation.Migrations")));

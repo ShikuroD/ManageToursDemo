@@ -19,6 +19,7 @@ namespace AppCore.Interfaces
         Price GetPrice(int tourId, int priceId);
         Price AddPrice(int tourId, Price price);
         void UpdatePrice(int tourId, Price Price);
+        void DeletePrice(int tourId, Price Price);
         void DisablePrice(int tourId, int priceId);
         void ActivatePrice(int tourId, int priceId);
 

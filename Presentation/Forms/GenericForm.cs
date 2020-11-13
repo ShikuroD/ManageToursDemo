@@ -18,13 +18,12 @@ namespace Presentation.Forms
     {
         private IList<T> _origin;
         private IList<T> _arr;
-        private IList<T> _toBeUpdated = new List<T>();
-        private IList<T> _toBeAdded = new List<T>();
 
         private IUnitOfWork _unitOfWork;
         private Type _type;
         private int selectedIndex = 0;
 
+        private string title;
         private string msgAdd;
         private string msgEdit;
         private string msgShow;
@@ -33,19 +32,19 @@ namespace Presentation.Forms
         {
             if (_type.Equals(typeof(Location)))
             {
-                msgAdd = "Thêm địa điểm này?"; msgEdit = "Sửa địa điểm này?"; msgShow = "Hiện địa điểm này?"; msgHide = "Ẩn địa điểm này?";
+                title = "Quản lí địa điểm"; msgAdd = "Thêm địa điểm này?"; msgEdit = "Sửa địa điểm này?"; msgShow = "Kích hoạt địa điểm này?"; msgHide = "Ẩn địa điểm này?";
             }
             else if (_type.Equals(typeof(CostType)))
             {
-                msgAdd = "Thêm loại chi phí này?"; msgEdit = "Sửa loại chi phí này?"; msgShow = "Hiện loại chi phí này?"; msgHide = "Ẩn loại chi phí này?";
+                title = "Quản lí loại chi phí"; msgAdd = "Thêm loại chi phí này?"; msgEdit = "Sửa loại chi phí này?"; msgShow = "Kích hoạt loại chi phí này?"; msgHide = "Ẩn loại chi phí này?";
             }
             else if (_type.Equals(typeof(TourType)))
             {
-                msgAdd = "Thêm loại tour này?"; msgEdit = "Sửa loại tour này?"; msgShow = "Hiện loại tour này?"; msgHide = "Ẩn loại tour này?";
+                title = "Quản lí loại tour"; msgAdd = "Thêm loại tour này?"; msgEdit = "Sửa loại tour này?"; msgShow = "Kích hoạt loại tour này?"; msgHide = "Ẩn loại tour này?";
             }
             else
             {
-                msgAdd = "Thêm công việc này?"; msgEdit = "Sửa công việc này?"; msgShow = "Hiện công việc này?"; msgHide = "Ẩn công việc này?";
+                title = "Quản lí công việc"; msgAdd = "Thêm công việc này?"; msgEdit = "Sửa công việc này?"; msgShow = "Kích hoạt công việc này?"; msgHide = "Ẩn công việc này?";
             }
         }
         private void LoadData()
@@ -60,7 +59,11 @@ namespace Presentation.Forms
         {
             TblSelectClass table = new TblSelectClass(_arr.Cast<SelectClass>().ToList());
             this.gridView.DataSource = table;
-            if (selectedIndex < 0) this.gridView.ClearSelection();
+            if (selectedIndex < 0)
+            {
+                this.gridView.ClearSelection();
+                
+            }
             else this.gridView.Rows[selectedIndex].Selected = true;
             
         }
@@ -88,15 +91,17 @@ namespace Presentation.Forms
             if (this.gridView.SelectedRows.Count > 0)
             {
                 var row = this.gridView.SelectedRows[0];
+                var statusCell = row.Cells["Status"];
                 selectedIndex = row.Index;
-                if ((STATUS)row.Cells["Status"].Value == STATUS.AVAILABLE)
+
+                if ((STATUS)statusCell.Value == STATUS.AVAILABLE)
                 {
                     btnChangeStatus.Text = "ẨN";
                     this.EnableButton(true);
                 }
                 else
                 {
-                    btnChangeStatus.Text = "HIỆN";
+                    btnChangeStatus.Text = "KÍCH HOẠT";
                     this.EnableButton(true);
                 }
 
@@ -142,6 +147,7 @@ namespace Presentation.Forms
             
             InitializeComponent();
 
+            this.Text = title;
             this.LoadGridView();
 
             this.SetUpGridView();
@@ -195,15 +201,15 @@ namespace Presentation.Forms
                 }
                 else if (_type.Equals(typeof(CostType)))
                 {
-                    _unitOfWork.Locations.Update(obj);
+                    _unitOfWork.CostTypes.Update(obj);
                 }
                 else if (_type.Equals(typeof(TourType)))
                 {
-                    _unitOfWork.Locations.Update(obj);
+                    _unitOfWork.TourTypes.Update(obj);
                 }
                 else
                 {
-                    _unitOfWork.Locations.Update(obj);
+                    _unitOfWork.Jobs.Update(obj);
                 }
 
                 txtAdd.Text = add;
@@ -261,6 +267,7 @@ namespace Presentation.Forms
         private void gridView_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             this.gridView.ClearSelection();
+            
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -302,16 +309,32 @@ namespace Presentation.Forms
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            LoadData();
+            //LoadData();
             Search();
             LoadGridView();
         }
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
-            LoadData();
+            //LoadData();
             Search();
             LoadGridView();
+        }
+
+        private void gridView_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            var index = e.RowIndex;
+            var cell = gridView.Rows[index].Cells["StatusName"];
+            //if (cell.Value.ToString().Equals("O")) cell.Style.BackColor = Color.Green;
+            //else cell.Style.BackColor = Color.Red;
+        }
+
+        private void gridView_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
+        {
+            var index = e.RowIndex;
+            var cell = gridView.Rows[index].Cells["StatusName"];
+            if (cell.Value.ToString().Equals("O")) cell.Style.BackColor = Color.Green;
+            else cell.Style.BackColor = Color.Red;
         }
     }
 }

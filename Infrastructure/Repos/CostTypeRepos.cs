@@ -30,5 +30,21 @@ namespace Infrastructure.Repos
                 return _context.Set<CostType>().Where(m => m.Status == status).ToList();
             }
         }
+
+        public new void Activate(CostType entity)
+        {
+            this.UpdateStatus(entity, STATUS.AVAILABLE);
+        }
+
+        public new void Disable(CostType entity)
+        {
+            this.UpdateStatus(entity, STATUS.DISABLED);
+        }
+
+        private void UpdateStatus(CostType entity, STATUS status)
+        {
+            entity.Status = status;
+            this.Update(entity);
+        }
     }
 }

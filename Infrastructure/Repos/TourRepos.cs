@@ -85,9 +85,9 @@ namespace Infrastructure.Repos
             var prices = _context.Prices.Where(m => m.Id.Equals(priceId) && m.TourId.Equals(tourId)).ToList();
             if (prices == null || !prices.Any())
             {
-                return prices.First();
+                return null;
             }
-            return null;
+            return prices.First();
         }
         public Price AddPrice(int tourId, Price price)
         {
@@ -104,6 +104,14 @@ namespace Infrastructure.Repos
             if ((this.Exists(tourId)) && price != null && tourId.Equals(price.TourId))
             {
                 _context.Prices.Update(price);
+                _context.SaveChanges();
+            }
+        }
+        public void DeletePrice(int tourId, Price price)
+        {
+            if ((this.Exists(tourId)) && price != null && tourId.Equals(price.TourId))
+            {
+                _context.Prices.Remove(price);
                 _context.SaveChanges();
             }
         }

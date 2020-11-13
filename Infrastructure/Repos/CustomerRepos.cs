@@ -24,5 +24,21 @@ namespace Infrastructure.Repos
                 return _context.Set<Customer>().Where(m => m.Status == status).ToList();
             }
         }
+
+        public new void Activate(Customer entity)
+        {
+            this.UpdateStatus(entity, STATUS.AVAILABLE);
+        }
+
+        public new void Disable(Customer entity)
+        {
+            this.UpdateStatus(entity, STATUS.DISABLED);
+        }
+
+        private void UpdateStatus(Customer entity, STATUS status)
+        {
+            entity.Status = status;
+            this.Update(entity);
+        }
     }
 }

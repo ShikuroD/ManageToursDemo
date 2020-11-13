@@ -14,6 +14,7 @@ namespace AppCore
     {
         MALE,
         FEMALE,
-        OTHER
+        OTHER,
+        ALL
     }
 }
