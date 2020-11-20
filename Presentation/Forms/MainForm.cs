@@ -209,7 +209,7 @@ namespace Presentation
                 Name = "Tất cả",
                 Status = STATUS.AVAILABLE
             });
-            comboTourType.Items.Clear();
+            comboTourType.DataSource = null;
             comboTourType.DataSource = new TblSelectClass(arr.OrderBy(m => m.Id).ToList());
             comboTourType.DisplayMember = "Name";
             comboTourType.ValueMember = "Id"; 
