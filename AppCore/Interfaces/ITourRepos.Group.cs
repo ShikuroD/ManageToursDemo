@@ -16,6 +16,7 @@ namespace AppCore.Interfaces
 
         //___________________________________________________________________________________
         //manage attendants
+        IList<Attendant> GetAllAttendants();
         IList<Attendant> GetAttendantsByGroupId(Group group, STATUS status = STATUS.ALL);
         Attendant GetAttendant(Group group, int attendantId);
         Attendant AddAttendant(Group group, Attendant attendant);

@@ -1,4 +1,5 @@
 ﻿using AppCore;
+using AppCore.Interfaces;
 using AppCore.Models;
 using System;
 using System.Collections.Generic;
@@ -13,10 +14,12 @@ namespace Presentation.Forms
 {
     public partial class PersonDialog<T> : Form  where T : Person
     {
+        private IUnitOfWork _unitOfWork;
         private T _model = null;
         private string title;
         private string confirmMsg;
         private Type _type;
+        private bool _toBeEdited = false;
 
         private void hideId()
         {
@@ -62,10 +65,10 @@ namespace Presentation.Forms
 
             return _model;
         }
-        public PersonDialog(T model)
+        public PersonDialog(IUnitOfWork unitOfWork, T model)
         {
             _type = typeof(T);
-            
+            _unitOfWork = unitOfWork;
             InitializeComponent();
 
             LoadComboSex();
@@ -83,6 +86,7 @@ namespace Presentation.Forms
             }
             else
             {
+                _toBeEdited = true;
                 _model = model;
                 if (_type.Equals(typeof(Employee)))
                 {
@@ -128,6 +132,31 @@ namespace Presentation.Forms
             }
             var check = MessageBox.Show(confirmMsg, "Xác nhận", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             if (check.Equals(DialogResult.Cancel)) return;
+
+            var temp = returnModel();
+            dynamic obj = Convert.ChangeType(temp, _type);
+            if (_toBeEdited)
+            {
+                if (_type.Equals(typeof(Employee)))
+                {
+                    _unitOfWork.Employees.Update(obj);
+                }
+                else
+                {
+                    _unitOfWork.Customers.Update(obj);
+                }
+            }
+            else
+            {
+                if (_type.Equals(typeof(Employee)))
+                {
+                    _unitOfWork.Employees.Add(obj);
+                }
+                else
+                {
+                    _unitOfWork.Customers.Add(obj);
+                }
+            }
 
             this.DialogResult = DialogResult.OK;
             this.Close();

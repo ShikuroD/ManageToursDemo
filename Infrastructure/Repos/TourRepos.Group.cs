@@ -13,11 +13,7 @@ namespace Infrastructure.Repos
         //manage groupDetails
         public IList<GroupDetail> GetGroupDetailsByGroupId(Group group, STATUS status = STATUS.ALL)
         {
-            if (group.GroupDetails == null || !group.GroupDetails.Any())
-            {
-                return null;
-            }
-            return group.GroupDetails;
+            return _context.GroupDetails.Where(m => m.GroupId.Equals(group.Id)).ToList();
         }
 
         public GroupDetail GetGroupDetail(Group group, int groupDetailId)
@@ -56,13 +52,13 @@ namespace Infrastructure.Repos
 
 
         //manage attendants
+        public IList<Attendant> GetAllAttendants()
+        {
+            return _context.Attendants.ToList();
+        }
         public IList<Attendant> GetAttendantsByGroupId(Group group, STATUS status = STATUS.ALL)
         {
-            if (group.Attendants == null || !group.Attendants.Any())
-            {
-                return null;
-            }
-            return group.Attendants;
+            return _context.Attendants.Where(m => m.GroupId.Equals(group.Id)).ToList();
         }
 
         public Attendant GetAttendant(Group group, int attendantId)
@@ -102,11 +98,7 @@ namespace Infrastructure.Repos
         //manage costs
         public IList<Cost> GetCostsByGroupId(Group group, STATUS status = STATUS.ALL)
         {
-            if (group.Costs == null || !group.Costs.Any())
-            {
-                return null;
-            }
-            return group.Costs;
+            return _context.Costs.Where(m => m.GroupId.Equals(group.Id)).ToList();
         }
 
         public Cost GetCost(Group group, int costId)

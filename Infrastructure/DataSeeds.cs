@@ -41,10 +41,10 @@ namespace Infrastructure
             if (!context.CostTypes.Any())
             {
                 context.CostTypes.AddRange(
-                    new CostType("Di chuyển"),
                     new CostType("Ăn uống"),
                     new CostType("Khách sạn"),
-                    new CostType("Hỗ trợ")
+                    new CostType("Hỗ trợ"),
+                    new CostType("Di chuyển")
                     );
 
                 context.SaveChanges();
@@ -54,10 +54,10 @@ namespace Infrastructure
             if (!context.Jobs.Any())
             {
                 context.Jobs.AddRange(
-                    new Job("Tài xế"),
                     new Job("Hướng dẫn viên"),
                     new Job("Hậu cần"),
-                    new Job("Tiếp viên")
+                    new Job("Tiếp viên"),
+                    new Job("Tài xế")
                     );
 
                 context.SaveChanges();

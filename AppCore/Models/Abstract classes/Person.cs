@@ -33,5 +33,18 @@ namespace AppCore.Models
             Address = address;
             Status = status;
         }
+        public Person(Person p)
+        {
+            this.Copy(p);
+        }
+        public void Copy(Person p)
+        {
+            Name = p.Name;
+            Sex = p.Sex;
+            IdentityCode = p.IdentityCode;
+            PhoneNumber = p.PhoneNumber;
+            Address = p.Address;
+            Status = p.Status;
+        }
     }
 }

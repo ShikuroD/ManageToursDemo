@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using System.Text;
 
 namespace AppCore.Models
@@ -21,6 +23,13 @@ namespace AppCore.Models
 
         public STATUS Status { get; set; } = STATUS.AVAILABLE;
 
+        [NotMapped]
+        public decimal SumRevenue { get; set; }
+        [NotMapped]
+        public decimal SumCost { get; set; }
+        [NotMapped]
+        public decimal SumPrice { get; set; }
+
         public Tour() { }
         public Tour(string name, string description, int tourTypeId, STATUS status = STATUS.AVAILABLE)
         {
@@ -28,6 +37,13 @@ namespace AppCore.Models
             Description = description;
             Status = status;
             TourTypeId = tourTypeId;
+        }
+        public Tour Clone()
+        {
+            var res = new Tour(this.Name, this.Description, this.TourTypeId, this.Status);
+            res.Id = this.Id;
+            res.Groups = this.Groups.Select(m => m.Clone()).ToList();
+            return res;
         }
     }
     

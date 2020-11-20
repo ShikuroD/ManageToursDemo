@@ -70,6 +70,11 @@ namespace Infrastructure.Repos
 
         //-------------------------------------------------------------------------------------------------------------------------------
         //manage prices
+        public IList<Price> GetAllPrices()
+        {
+
+            return _context.Prices.ToList();
+        }
         public IList<Price> GetPricesByTourId(int tourId, STATUS status = STATUS.ALL)
         {
 
@@ -144,14 +149,15 @@ namespace Infrastructure.Repos
 
 
         //manage groups
+        public IList<Group> GetAllGroups()
+        {
+            return _context.Groups.ToList();
+        }
         public IList<Group> GetGroupsByTourId(int tourId, STATUS status = STATUS.ALL)
         {
             var tour = this.GetBy(tourId);
-            if(tour.Groups == null || !tour.Groups.Any())
-            {
-                return null;
-            }
-            return tour.Groups;
+            var groups = _context.Groups.Where(m => m.TourId.Equals(tour.Id)).ToList();
+            return groups;
         }
 
         public Group GetGroup(int tourId, int groupId)
@@ -166,7 +172,7 @@ namespace Infrastructure.Repos
         }
         public Group AddGroup(int tourId, Group group)
         {
-            if (this.Exists(tourId) && group.Id.Equals(tourId))
+            if (this.Exists(tourId) && group.TourId.Equals(tourId))
             {
                 var tracked = _context.Set<Group>().Add(group);
                 _context.SaveChanges();

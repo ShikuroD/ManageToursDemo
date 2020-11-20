@@ -16,10 +16,14 @@ namespace Presentation.Forms
         private Price _model;
         private IUnitOfWork _unitOfWork;
         private IList<Price> _prices;
+        private IList<Price> _pricesModified;
 
+        private int _nextPriceId;
         private string title;
         private string confirmMsg;
         private string _tourName;
+
+        private bool _toBeEdited = false;
         private void hideId()
         {
             lblId.Visible = false;
@@ -28,7 +32,7 @@ namespace Presentation.Forms
         
         private void LoadModel()
         {
-            if (_model == null)
+            if (!_toBeEdited)
             {
                 txtName.Text = _tourName; return;
             }
@@ -39,23 +43,26 @@ namespace Presentation.Forms
             dateStart.Value = _model.StartDate.Date;
             dateEnd.Value = _model.EndDate.Date;
         }
-        public Price returnModel()
+        private Price returnModel()
         {
-            if (_model == null) _model = new Price();
+            var res = new Price();
+            if (_toBeEdited) res.Id = _model.Id;
 
-            _model.Name = txtName.Text;
-            _model.Value = decimal.Parse(txtValue.Text);
-            _model.StartDate = dateStart.Value.Date;
-            _model.EndDate = dateEnd.Value.Date;
+            res.Name = txtName.Text;
+            res.Value = decimal.Parse(txtValue.Text);
+            res.StartDate = dateStart.Value.Date;
+            res.EndDate = dateEnd.Value.Date;
 
-            return _model;
+            return res;
         }
-        public PriceDialog(IUnitOfWork unitOfWork, Price model, IList<Price> prices, string tourName)
+        public PriceDialog(IUnitOfWork unitOfWork, Price model, IList<Price> prices, IList<Price> pricesModified, int nextPriceId, string tourName)
         {
             InitializeComponent();
 
             _unitOfWork = unitOfWork;
             _prices = prices;
+            _pricesModified = pricesModified;
+            _nextPriceId = nextPriceId;
             if (model == null)
             {
                 this.hideId();
@@ -63,15 +70,24 @@ namespace Presentation.Forms
             }
             else
             {
+                _toBeEdited = true;
                 _model = model;
                 title = "Cập nhật giá";
             }
             _tourName = tourName;
+            this.Text = title;
             confirmMsg = title + " này?";
             
 
             LoadModel();
+            this.dateStart.MinDate = this.dateStart.Value.Date;
             this.dateEnd.MinDate = this.dateStart.Value.Date;
+
+            if(_toBeEdited && DateTime.Compare(_model.EndDate.Date, DateTime.Today) < 0)
+            {
+                dateStart.Enabled = false;
+                dateEnd.Enabled = false;
+            }
         }
 
         private void txtName_TextChanged(object sender, EventArgs e)
@@ -82,14 +98,16 @@ namespace Presentation.Forms
 
         private void txtValue_TextChanged(object sender, EventArgs e)
         {
-            var regex = new Regex(@"^[1-9]+[0-9]*$");
+            var regex = new Regex(@"^[1-9]{1}[0-9]{0,12}$");
             if (regex.IsMatch(txtValue.Text)) lblValueError.Visible = false;
             else lblValueError.Visible = true;
         }
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-            if (lblNameError.Visible || lblValueError.Visible)
+
+            //validating
+            if (lblNameError.Visible || lblValueError.Visible || String.IsNullOrEmpty(txtValue.Text.Trim()))
             {
                 MessageBox.Show("Dữ liệu nhập chưa chính xác", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning); return;
             }
@@ -115,6 +133,25 @@ namespace Presentation.Forms
             var check = MessageBox.Show(confirmMsg, "Xác nhận", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             if (check.Equals(DialogResult.Cancel)) return;
 
+            //execute
+            if (_toBeEdited)
+            {
+                var old_id = _model.Id;
+                _prices.Remove(_model);
+                _pricesModified.Remove(_model);
+                var temp = returnModel();
+                temp.Id = old_id;
+                _prices.Add(temp);
+                _pricesModified.Add(temp);
+            }
+            else
+            {
+                var newPrice = returnModel();
+                newPrice.Id = _nextPriceId + 1;
+                _prices.Add(newPrice);
+                _pricesModified.Add(newPrice);
+            }
+
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
@@ -130,8 +167,17 @@ namespace Presentation.Forms
 
         private void dateStart_ValueChanged(object sender, EventArgs e)
         {
-            this.dateEnd.MinDate = this.dateStart.Value.Date;
-            this.dateEnd.Value = this.dateStart.Value.Date;
+            if(DateTime.Compare(dateStart.Value,dateEnd.Value) < 0)
+            {
+                this.dateEnd.MinDate = this.dateStart.Value.Date;
+                //this.dateEnd.Value = this.dateStart.Value.Date;
+            }
+            else
+            {
+                this.dateEnd.Value = this.dateStart.Value.Date;
+                this.dateEnd.MinDate = this.dateStart.Value.Date;
+            }
+            
         }
     }
 }

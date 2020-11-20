@@ -112,7 +112,6 @@ namespace Presentation.Forms
             this.txtValue.Name = "txtValue";
             this.txtValue.Size = new System.Drawing.Size(146, 23);
             this.txtValue.TabIndex = 7;
-            this.txtValue.Text = "0";
             this.txtValue.TextChanged += new System.EventHandler(this.txtValue_TextChanged);
             // 
             // dateStart

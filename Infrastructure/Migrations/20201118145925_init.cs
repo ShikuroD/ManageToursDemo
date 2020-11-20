@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infrastructure.Migrations
 {
-    public partial class initiation : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -152,6 +152,7 @@ namespace Infrastructure.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(nullable: true),
                     TourId = table.Column<int>(nullable: false),
                     Value = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     StartDate = table.Column<DateTime>(nullable: false),
@@ -236,7 +237,7 @@ namespace Infrastructure.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(maxLength: 60, nullable: false),
-                    Value = table.Column<double>(nullable: false),
+                    Value = table.Column<decimal>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     CostTypeId = table.Column<int>(nullable: false),
                     GroupId = table.Column<int>(nullable: false),

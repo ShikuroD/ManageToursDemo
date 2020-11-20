@@ -51,6 +51,10 @@
             this.txtId = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.txtSearchIdentityCode = new System.Windows.Forms.TextBox();
+            this.txtSearchPhone = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridView)).BeginInit();
             this.groupBox3.SuspendLayout();
@@ -58,6 +62,10 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.txtSearchPhone);
+            this.groupBox1.Controls.Add(this.txtSearchIdentityCode);
+            this.groupBox1.Controls.Add(this.label9);
+            this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.comboSex);
             this.groupBox1.Controls.Add(this.btnSearch);
@@ -92,7 +100,7 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(509, 25);
+            this.btnSearch.Location = new System.Drawing.Point(888, 26);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(72, 27);
             this.btnSearch.TabIndex = 3;
@@ -290,6 +298,40 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Id:";
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(509, 32);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(46, 15);
+            this.label8.TabIndex = 6;
+            this.label8.Text = "CMND:";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(689, 30);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(30, 15);
+            this.label9.TabIndex = 7;
+            this.label9.Text = "SĐT:";
+            // 
+            // txtSearchIdentityCode
+            // 
+            this.txtSearchIdentityCode.Location = new System.Drawing.Point(556, 27);
+            this.txtSearchIdentityCode.Name = "txtSearchIdentityCode";
+            this.txtSearchIdentityCode.Size = new System.Drawing.Size(115, 23);
+            this.txtSearchIdentityCode.TabIndex = 8;
+            this.txtSearchIdentityCode.TextChanged += new System.EventHandler(this.txtSearchIdentityCode_TextChanged);
+            // 
+            // txtSearchPhone
+            // 
+            this.txtSearchPhone.Location = new System.Drawing.Point(725, 27);
+            this.txtSearchPhone.Name = "txtSearchPhone";
+            this.txtSearchPhone.Size = new System.Drawing.Size(124, 23);
+            this.txtSearchPhone.TabIndex = 9;
+            this.txtSearchPhone.TextChanged += new System.EventHandler(this.txtSearchPhone_TextChanged);
+            // 
             // PersonForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -335,5 +377,9 @@
         private System.Windows.Forms.TextBox txtAddress;
         private System.Windows.Forms.ComboBox comboSex;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox txtSearchPhone;
+        private System.Windows.Forms.TextBox txtSearchIdentityCode;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label8;
     }
 }

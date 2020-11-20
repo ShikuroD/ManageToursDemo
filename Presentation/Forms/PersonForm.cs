@@ -201,8 +201,9 @@ namespace Presentation.Forms
         {
             var searchName = txtSearchName.Text.Trim().ToLower();
             var searchSex = ((KeyValuePair<SEX, string>)comboSex.SelectedItem).Key;
+            var searchPhone = txtSearchPhone.Text.Trim();
+            var searchIdentity = txtSearchIdentityCode.Text.Trim();
             var res = _origin.AsQueryable();
-            //MessageBox.Show("before earch: " + _arr.Count + " | " + searchSex.ToString()); 
             
             if (searchSex != SEX.ALL)
             {
@@ -212,9 +213,16 @@ namespace Presentation.Forms
             {
                 res = res.Where(m => m.Name.Contains(searchName, StringComparison.OrdinalIgnoreCase));
             }
-            
+            if (!String.IsNullOrEmpty(searchIdentity))
+            {
+                res = res.Where(m => m.IdentityCode.Contains(searchIdentity));
+            }
+            if (!String.IsNullOrEmpty(searchPhone))
+            {
+                res = res.Where(m => m.PhoneNumber.Contains(searchPhone));
+            }
+
             _arr = res.ToList();
-            //MessageBox.Show("after earch: " + _arr.Count);
         }
         public PersonForm(IUnitOfWork unitOfWork)
         {
@@ -247,21 +255,11 @@ namespace Presentation.Forms
         private void btnEdit_Click(object sender, EventArgs e)
         {
             var entity = _origin.Where(m => m.Id.Equals(_model.Id)).First();
-            var dialog = new PersonDialog<T>(entity);
+            var dialog = new PersonDialog<T>(_unitOfWork, entity);
             var check = dialog.ShowDialog();
             
             if (check.Equals(DialogResult.OK))
             {
-                var temp = dialog.returnModel();
-                dynamic obj = Convert.ChangeType(temp, _type);
-                if (_type.Equals(typeof(Employee)))
-                {
-                    _unitOfWork.Employees.Update(obj);
-                }
-                else
-                {
-                    _unitOfWork.Customers.Update(obj);
-                }
                 MessageBox.Show("Cập nhật thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LoadData();
                 Search();
@@ -310,21 +308,11 @@ namespace Presentation.Forms
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            var dialog = new PersonDialog<T>(null);
+            var dialog = new PersonDialog<T>(_unitOfWork, null);
             var check = dialog.ShowDialog();
 
             if (check.Equals(DialogResult.OK))
             {
-                var temp = dialog.returnModel();
-                dynamic obj = Convert.ChangeType(temp, _type);
-                if (_type.Equals(typeof(Employee)))
-                {
-                    _unitOfWork.Employees.Add(obj);
-                }
-                else
-                {
-                    _unitOfWork.Customers.Add(obj);
-                }
                 MessageBox.Show("Thêm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LoadData();
                 Search();
@@ -358,6 +346,18 @@ namespace Presentation.Forms
         private void comboSex_SelectedIndexChanged(object sender, EventArgs e)
         {
             //LoadData();
+            Search();
+            LoadGridView();
+        }
+
+        private void txtSearchIdentityCode_TextChanged(object sender, EventArgs e)
+        {
+            Search();
+            LoadGridView();
+        }
+
+        private void txtSearchPhone_TextChanged(object sender, EventArgs e)
+        {
             Search();
             LoadGridView();
         }

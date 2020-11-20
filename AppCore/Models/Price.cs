@@ -13,7 +13,7 @@ namespace AppCore.Models
         public int TourId { get; set; }
         public Tour Tour { get;set; }
 
-        [DataType(DataType.Currency)]
+        //[DataType(DataType.Currency)]
         public decimal Value { get; set; }
 
         [Display(Name = "Start date")]
@@ -36,6 +36,24 @@ namespace AppCore.Models
             StartDate = startDate;
             EndDate = endDate;
             Status = status;
+        }
+        public Price(Price price)
+        {
+            Name = price.Name;
+            TourId = price.TourId;
+            Value = price.Value;
+            StartDate = price.StartDate;
+            EndDate = price.EndDate;
+            Status = price.Status;
+        }
+        public void Copy(Price price)
+        {
+            Name = price.Name;
+            TourId = price.TourId;
+            Value = price.Value;
+            StartDate = price.StartDate;
+            EndDate = price.EndDate;
+            Status = price.Status;
         }
     }
 }

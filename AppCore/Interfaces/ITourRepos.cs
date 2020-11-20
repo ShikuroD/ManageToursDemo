@@ -15,6 +15,7 @@ namespace AppCore.Interfaces
 
 
         //manage prices
+        IList<Price> GetAllPrices();
         IList<Price> GetPricesByTourId(int tourId, STATUS status = STATUS.ALL);
         Price GetPrice(int tourId, int priceId);
         Price AddPrice(int tourId, Price price);
@@ -25,6 +26,7 @@ namespace AppCore.Interfaces
 
 
         //manage groups
+        IList<Group> GetAllGroups();
         IList<Group> GetGroupsByTourId(int tourId, STATUS status = STATUS.ALL);
 
         Group GetGroup(int tourId, int groupId);

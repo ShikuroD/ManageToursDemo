@@ -67,8 +67,8 @@ namespace Infrastructure.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("INTEGER");
 
-                    b.Property<double>("Value")
-                        .HasColumnType("REAL");
+                    b.Property<decimal>("Value")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -291,6 +291,9 @@ namespace Infrastructure.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("EndDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("StartDate")

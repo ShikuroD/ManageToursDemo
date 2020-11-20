@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace AppCore.Models
 {
     public class Employee : Person
     {
+        [NotMapped]
+        public int TurnCount { get; set; }
         public Employee() : base()
         {
         }

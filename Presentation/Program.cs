@@ -63,10 +63,7 @@ namespace Presentation
             services.AddTransient<IJobRepos, JobRepos>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
-            //add core services
-            services.AddTransient<ITourService, TourService>();
-            services.AddTransient<ITourTypeService, TourTypeService>();
-            services.AddTransient<ILocationService, LocationService>();
+            services.AddTransient<ITourAnalysisService, TourAnalysisService>();
 
 
             services.AddDbContext<ManageToursContext>(options => options.UseSqlite($"Data Source=tours.db", x => x.MigrationsAssembly("Presentation.Migrations")));

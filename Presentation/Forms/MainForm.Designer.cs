@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnEditTourDetail = new System.Windows.Forms.Button();
             this.btnDeleteTour = new System.Windows.Forms.Button();
             this.btnChangeTourStatus = new System.Windows.Forms.Button();
@@ -44,7 +44,19 @@
             this.btnManageCustomer = new System.Windows.Forms.Button();
             this.btnManageEmployee = new System.Windows.Forms.Button();
             this.pnTour = new System.Windows.Forms.GroupBox();
+            this.btnSwitch = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.dateTo = new System.Windows.Forms.DateTimePicker();
+            this.dateFrom = new System.Windows.Forms.DateTimePicker();
+            this.txtPriceTo = new System.Windows.Forms.TextBox();
+            this.txtPriceFrom = new System.Windows.Forms.TextBox();
+            this.txtSearchGroup = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.gridViewGroup = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.btnDeleteGroup = new System.Windows.Forms.Button();
@@ -61,6 +73,10 @@
             this.label5 = new System.Windows.Forms.Label();
             this.gridViewTour = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnAnalyzeTour = new System.Windows.Forms.Button();
+            this.btnAnalyzeEmployee = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.pnTour.SuspendLayout();
@@ -72,6 +88,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridViewTourDetail)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewTour)).BeginInit();
             this.panel1.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            this.tableLayoutPanel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnEditTourDetail
@@ -246,6 +264,7 @@
             // 
             // pnTour
             // 
+            this.pnTour.Controls.Add(this.btnSwitch);
             this.pnTour.Controls.Add(this.groupBox3);
             this.pnTour.Controls.Add(this.btnEditTourDetail);
             this.pnTour.Controls.Add(this.tableLayoutPanel1);
@@ -264,9 +283,37 @@
             this.pnTour.TabStop = false;
             this.pnTour.Text = "Danh sách tour";
             // 
+            // btnSwitch
+            // 
+            this.btnSwitch.BackColor = System.Drawing.Color.Blue;
+            this.btnSwitch.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.btnSwitch.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.btnSwitch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSwitch.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnSwitch.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnSwitch.Location = new System.Drawing.Point(6, 310);
+            this.btnSwitch.Name = "btnSwitch";
+            this.btnSwitch.Size = new System.Drawing.Size(356, 35);
+            this.btnSwitch.TabIndex = 10;
+            this.btnSwitch.Text = "DANH SÁCH TOUR THEO HIỆN TẠI";
+            this.btnSwitch.UseVisualStyleBackColor = false;
+            this.btnSwitch.Visible = false;
+            this.btnSwitch.Click += new System.EventHandler(this.btnSwitch_Click);
+            // 
             // groupBox3
             // 
             this.groupBox3.BackColor = System.Drawing.Color.Gainsboro;
+            this.groupBox3.Controls.Add(this.button1);
+            this.groupBox3.Controls.Add(this.dateTo);
+            this.groupBox3.Controls.Add(this.dateFrom);
+            this.groupBox3.Controls.Add(this.txtPriceTo);
+            this.groupBox3.Controls.Add(this.txtPriceFrom);
+            this.groupBox3.Controls.Add(this.txtSearchGroup);
+            this.groupBox3.Controls.Add(this.label7);
+            this.groupBox3.Controls.Add(this.label6);
+            this.groupBox3.Controls.Add(this.label4);
+            this.groupBox3.Controls.Add(this.label3);
+            this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Controls.Add(this.gridViewGroup);
             this.groupBox3.Controls.Add(this.tableLayoutPanel3);
             this.groupBox3.Location = new System.Drawing.Point(21, 357);
@@ -276,6 +323,105 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Danh sách đoàn khách";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(745, 29);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(77, 30);
+            this.button1.TabIndex = 16;
+            this.button1.Text = "Tìm";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // dateTo
+            // 
+            this.dateTo.CustomFormat = "dd/MM/yyyy";
+            this.dateTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTo.Location = new System.Drawing.Point(590, 48);
+            this.dateTo.Name = "dateTo";
+            this.dateTo.Size = new System.Drawing.Size(120, 23);
+            this.dateTo.TabIndex = 15;
+            this.dateTo.ValueChanged += new System.EventHandler(this.dateTo_ValueChanged);
+            // 
+            // dateFrom
+            // 
+            this.dateFrom.CustomFormat = "dd/MM/yyyy";
+            this.dateFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateFrom.Location = new System.Drawing.Point(590, 19);
+            this.dateFrom.Name = "dateFrom";
+            this.dateFrom.Size = new System.Drawing.Size(120, 23);
+            this.dateFrom.TabIndex = 14;
+            this.dateFrom.ValueChanged += new System.EventHandler(this.dateFrom_ValueChanged);
+            // 
+            // txtPriceTo
+            // 
+            this.txtPriceTo.Location = new System.Drawing.Point(347, 48);
+            this.txtPriceTo.Name = "txtPriceTo";
+            this.txtPriceTo.Size = new System.Drawing.Size(157, 23);
+            this.txtPriceTo.TabIndex = 13;
+            this.txtPriceTo.TextChanged += new System.EventHandler(this.txtPriceTo_TextChanged);
+            // 
+            // txtPriceFrom
+            // 
+            this.txtPriceFrom.Location = new System.Drawing.Point(347, 22);
+            this.txtPriceFrom.Name = "txtPriceFrom";
+            this.txtPriceFrom.Size = new System.Drawing.Size(157, 23);
+            this.txtPriceFrom.TabIndex = 12;
+            this.txtPriceFrom.TextChanged += new System.EventHandler(this.txtPriceFrom_TextChanged);
+            // 
+            // txtSearchGroup
+            // 
+            this.txtSearchGroup.Location = new System.Drawing.Point(71, 32);
+            this.txtSearchGroup.Name = "txtSearchGroup";
+            this.txtSearchGroup.Size = new System.Drawing.Size(197, 23);
+            this.txtSearchGroup.TabIndex = 11;
+            this.txtSearchGroup.TextChanged += new System.EventHandler(this.txtSearchGroup_TextChanged);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(528, 54);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(54, 15);
+            this.label7.TabIndex = 10;
+            this.label7.Text = "Ngày KT:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(528, 25);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(56, 15);
+            this.label6.TabIndex = 9;
+            this.label6.Text = "Ngày BĐ:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(308, 54);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(30, 15);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "đến:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(300, 25);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(41, 15);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Giá từ:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 36);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(59, 15);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Tìm kiếm:";
+            // 
             // gridViewGroup
             // 
             this.gridViewGroup.AllowUserToAddRows = false;
@@ -283,41 +429,42 @@
             this.gridViewGroup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.gridViewGroup.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.gridViewGroup.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gridViewGroup.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gridViewGroup.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
             this.gridViewGroup.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.gridViewGroup.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gridViewGroup.DefaultCellStyle = dataGridViewCellStyle11;
             this.gridViewGroup.Location = new System.Drawing.Point(3, 76);
             this.gridViewGroup.MultiSelect = false;
             this.gridViewGroup.Name = "gridViewGroup";
             this.gridViewGroup.ReadOnly = true;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gridViewGroup.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gridViewGroup.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
             this.gridViewGroup.RowHeadersVisible = false;
             this.gridViewGroup.RowTemplate.Height = 25;
             this.gridViewGroup.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gridViewGroup.Size = new System.Drawing.Size(864, 221);
             this.gridViewGroup.TabIndex = 5;
             this.gridViewGroup.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.gridViewGroup_RowPrePaint);
+            this.gridViewGroup.SelectionChanged += new System.EventHandler(this.gridViewGroup_SelectionChanged);
             // 
             // tableLayoutPanel3
             // 
@@ -356,6 +503,7 @@
             this.btnDeleteGroup.TabIndex = 6;
             this.btnDeleteGroup.Text = "XÓA";
             this.btnDeleteGroup.UseVisualStyleBackColor = false;
+            this.btnDeleteGroup.Click += new System.EventHandler(this.btnDeleteGroup_Click);
             // 
             // btnChangeStatusGroup
             // 
@@ -373,6 +521,7 @@
             this.btnChangeStatusGroup.TabIndex = 5;
             this.btnChangeStatusGroup.Text = "ẨN";
             this.btnChangeStatusGroup.UseVisualStyleBackColor = false;
+            this.btnChangeStatusGroup.Click += new System.EventHandler(this.btnChangeStatusGroup_Click);
             // 
             // btnEditGroup
             // 
@@ -390,6 +539,7 @@
             this.btnEditGroup.TabIndex = 4;
             this.btnEditGroup.Text = "CHI TIẾT";
             this.btnEditGroup.UseVisualStyleBackColor = false;
+            this.btnEditGroup.Click += new System.EventHandler(this.btnEditGroup_Click);
             // 
             // btnAddGroup
             // 
@@ -407,6 +557,7 @@
             this.btnAddGroup.TabIndex = 3;
             this.btnAddGroup.Text = "THÊM";
             this.btnAddGroup.UseVisualStyleBackColor = false;
+            this.btnAddGroup.Click += new System.EventHandler(this.btnAddGroup_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -524,11 +675,62 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.panel1.Controls.Add(this.groupBox4);
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(196, 657);
             this.panel1.TabIndex = 6;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.tableLayoutPanel4);
+            this.groupBox4.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.groupBox4.Location = new System.Drawing.Point(11, 12);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(174, 289);
+            this.groupBox4.TabIndex = 5;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Thống kê";
+            // 
+            // tableLayoutPanel4
+            // 
+            this.tableLayoutPanel4.ColumnCount = 1;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel4.Controls.Add(this.btnAnalyzeTour, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.btnAnalyzeEmployee, 0, 1);
+            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 19);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.RowCount = 2;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(168, 267);
+            this.tableLayoutPanel4.TabIndex = 0;
+            // 
+            // btnAnalyzeTour
+            // 
+            this.btnAnalyzeTour.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnAnalyzeTour.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnAnalyzeTour.Location = new System.Drawing.Point(3, 3);
+            this.btnAnalyzeTour.Name = "btnAnalyzeTour";
+            this.btnAnalyzeTour.Size = new System.Drawing.Size(162, 127);
+            this.btnAnalyzeTour.TabIndex = 0;
+            this.btnAnalyzeTour.Text = "THỐNG KÊ DOANH THU";
+            this.btnAnalyzeTour.UseVisualStyleBackColor = true;
+            this.btnAnalyzeTour.Click += new System.EventHandler(this.btnAnalyzeTour_Click);
+            // 
+            // btnAnalyzeEmployee
+            // 
+            this.btnAnalyzeEmployee.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnAnalyzeEmployee.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnAnalyzeEmployee.Location = new System.Drawing.Point(3, 136);
+            this.btnAnalyzeEmployee.Name = "btnAnalyzeEmployee";
+            this.btnAnalyzeEmployee.Size = new System.Drawing.Size(162, 128);
+            this.btnAnalyzeEmployee.TabIndex = 1;
+            this.btnAnalyzeEmployee.Text = "THỐNG KÊ HOẠT ĐỘNG NHÂN VIÊN";
+            this.btnAnalyzeEmployee.UseVisualStyleBackColor = true;
+            this.btnAnalyzeEmployee.Click += new System.EventHandler(this.btnAnalyzeEmployee_Click);
             // 
             // MainForm
             // 
@@ -547,6 +749,7 @@
             this.pnTour.ResumeLayout(false);
             this.pnTour.PerformLayout();
             this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewGroup)).EndInit();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -554,6 +757,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridViewTourDetail)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewTour)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            this.tableLayoutPanel4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -589,5 +794,21 @@
         private System.Windows.Forms.Button btnDeleteGroup;
         private System.Windows.Forms.Button btnChangeStatusGroup;
         private System.Windows.Forms.Button btnEditGroup;
+        private System.Windows.Forms.DateTimePicker dateTo;
+        private System.Windows.Forms.DateTimePicker dateFrom;
+        private System.Windows.Forms.TextBox txtPriceTo;
+        private System.Windows.Forms.TextBox txtPriceFrom;
+        private System.Windows.Forms.TextBox txtSearchGroup;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnSwitch;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
+        private System.Windows.Forms.Button btnAnalyzeTour;
+        private System.Windows.Forms.Button btnAnalyzeEmployee;
     }
 }

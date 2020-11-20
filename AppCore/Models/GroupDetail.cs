@@ -16,12 +16,19 @@ namespace AppCore.Models
         {
         }
 
-        public GroupDetail(int groupId, Group group, int customerId, Customer customer)
+        public GroupDetail(int groupId, int customerId)
         {
             GroupId = groupId;
-            Group = group;
             CustomerId = customerId;
-            Customer = customer;
+        }
+        public GroupDetail(GroupDetail groupDetail)
+        {
+            this.Copy(groupDetail);
+        }
+        public void Copy(GroupDetail a)
+        {
+            GroupId = a.GroupId;
+            CustomerId = a.CustomerId;
         }
     }
 }

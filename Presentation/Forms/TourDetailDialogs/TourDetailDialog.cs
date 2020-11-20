@@ -32,6 +32,7 @@ namespace Presentation.Forms
         private int _selectedIndex = -1;
         private string title;
         private string confirmMsg;
+        private bool _toBeEdited = false;
 
         private void hideId()
         {
@@ -91,16 +92,19 @@ namespace Presentation.Forms
             this.gridPrice.Columns["Value"].DisplayIndex = 2;
             this.gridPrice.Columns["Value"].HeaderText = "Giá";
             this.gridPrice.Columns["Value"].Width = 120;
+            this.gridPrice.Columns["Value"].DefaultCellStyle.Format = "##,#";
 
             this.gridPrice.Columns["StartDate"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             this.gridPrice.Columns["StartDate"].DisplayIndex = 3;
             this.gridPrice.Columns["StartDate"].HeaderText = "Bắt đầu";
             this.gridPrice.Columns["StartDate"].Width = 120;
+            this.gridPrice.Columns["StartDate"].DefaultCellStyle.Format = "dd/MM/yyyy";
 
             this.gridPrice.Columns["EndDate"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             this.gridPrice.Columns["EndDate"].DisplayIndex = 4;
             this.gridPrice.Columns["EndDate"].HeaderText = "Kết thúc";
             this.gridPrice.Columns["EndDate"].Width = 120;
+            this.gridPrice.Columns["EndDate"].DefaultCellStyle.Format = "dd/MM/yyyy";
 
             this.gridPrice.Columns["StatusName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             this.gridPrice.Columns["StatusName"].DisplayIndex = 5;
@@ -138,7 +142,8 @@ namespace Presentation.Forms
         }
         public Tour returnTour()
         {
-            if (_tour == null) _tour = new Tour();
+
+            if (!_toBeEdited) _tour = new Tour();
 
             _tour.Name = txtName.Text;
             _tour.Description = txtDescription.Text;
@@ -146,14 +151,7 @@ namespace Presentation.Forms
 
             return _tour;
         }
-        public IList<TourDetail> returnRoutes()
-        {
-            return _routes;
-        }
-        public IList<Price> returnPrices()
-        {
-            return _priceModified;
-        }
+        
 
         public TourDetailDialog(IUnitOfWork unitOfWork, Tour tour, IList<Location> locations, IList<TourType> tourTypes)
         {
@@ -163,20 +161,25 @@ namespace Presentation.Forms
             {
                 this.hideId();
                 title = "Thêm Tour";
-                _prices = new List<Price>(); _nextPriceId = 0;
+                _prices = new List<Price>();
                 _routes = new List<TourDetail>(); _routeOrder = 0;
             }
             else
             {
+                _toBeEdited = true;
                 _tour = tour;
-                _prices = _unitOfWork.Tours.GetPricesByTourId(_tour.Id); _nextPriceId = _prices.Count;
+                _prices = _unitOfWork.Tours.GetPricesByTourId(_tour.Id); 
                 _routes = _unitOfWork.Tours.GetTourDetailsByTourId(_tour.Id); _routeOrder = _routes.Count;
                 title = "Cập nhật tour";
             }
+            var count = _unitOfWork.Tours.GetAllPrices().OrderBy(m => m.Id);
+            if (count == null || count.Count() == 0) _nextPriceId = 0;
+            else _nextPriceId = count.Last().Id;
+
             confirmMsg = title + " này?";
             _tourTypes = tourTypes;
             _locations = locations;
-            _locationsAvailable = _locations.Where(m => m.Status.Equals(STATUS.AVAILABLE)).ToList();
+            _locationsAvailable = _locations.Where(m => m.Status.Equals(STATUS.AVAILABLE)).ToList(); 
             
 
             this.Text = title;
@@ -209,21 +212,59 @@ namespace Presentation.Forms
             if (check.Equals(DialogResult.Cancel)) return;
 
             this.DialogResult = DialogResult.Cancel;
-            this.Close();
+            
         }
 
         private void btnOk_Click(object sender, EventArgs e)
         {
+            //validating
             if (String.IsNullOrEmpty(txtName.Text))
             {
                 MessageBox.Show("Tên tour không được rỗng", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning); return;
             }
+            
             if (_routes.Count < 2)
             {
                 MessageBox.Show("Lịch trình cần có 2 địa diểm trở lên", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning); return;
             }
+            if (_prices.Count < 1)
+            {
+                MessageBox.Show("Tour chưa thêm giá vé", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning); return;
+            }
             var check = MessageBox.Show(confirmMsg, "Xác nhận", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             if (check.Equals(DialogResult.Cancel)) return;
+
+
+            //execute
+            _tour = returnTour();
+            if (_toBeEdited) _unitOfWork.Tours.Update(_tour);
+            else
+            {
+                _tour = _unitOfWork.Tours.Add(_tour);
+            }
+
+            foreach (TourDetail t in _routes)
+            {
+                t.TourId = _tour.Id;
+            }
+            _unitOfWork.Tours.UpdateTourDetails(_routes);
+
+
+            foreach (Price p in _priceModified)
+            {
+                var temp = _unitOfWork.Tours.GetPrice(_tour.Id, p.Id);
+                if (temp != null)
+                {
+                    temp.Copy(p);
+                    _unitOfWork.Tours.UpdatePrice(_tour.Id, temp);
+                }
+                else
+                {
+                    temp = new Price(p.Name, _tour.Id, p.Value, p.StartDate, p.EndDate);
+                    _unitOfWork.Tours.AddPrice(_tour.Id, temp);
+                }
+                
+            }
 
             this.DialogResult = DialogResult.OK;
             this.Close();
@@ -260,16 +301,13 @@ namespace Presentation.Forms
 
         private void btnAddPrice_Click(object sender, EventArgs e)
         {
-            var dialog = new PriceDialog(_unitOfWork, null, _prices, _tour.Name);
+            
+            var dialog = new PriceDialog(_unitOfWork, null, _prices, _priceModified, _nextPriceId, _tour==null?"":_tour.Name);
             var check = dialog.ShowDialog();
 
             if (check.Equals(DialogResult.OK))
             {
-                var price = dialog.returnModel();
-                price.Id = ++_nextPriceId;
-                _prices.Add(price);
-                _priceModified.Add(price);
-
+                _nextPriceId++;
                 MessageBox.Show("Thêm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LoadPrices();
             }
@@ -279,18 +317,11 @@ namespace Presentation.Forms
         private void btnEditPrice_Click(object sender, EventArgs e)
         {
             var price = _prices.Where(m => m.Id.Equals(Int32.Parse(gridPrice.SelectedRows[0].Cells[0].Value.ToString()))).First();
-            var dialog = new PriceDialog(_unitOfWork, price, _prices, _tour.Name);
+            var dialog = new PriceDialog(_unitOfWork, price, _prices, _priceModified, _nextPriceId, _tour.Name);
             var check = dialog.ShowDialog();
 
             if (check.Equals(DialogResult.OK))
             {
-                var old_id = price.Id;
-                _prices.Remove(price);
-                _priceModified.Remove(price);
-                price = dialog.returnModel();
-                price.Id = old_id;
-                _prices.Add(price);
-                _priceModified.Add(price);
 
                 MessageBox.Show("Cập nhật thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LoadPrices(_selectedIndex);
@@ -317,6 +348,11 @@ namespace Presentation.Forms
                 MessageBox.Show("Cập nhật thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LoadPrices(_selectedIndex);
             }
+        }
+
+        private void TourDetailDialog_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Dispose();
         }
     }
 }

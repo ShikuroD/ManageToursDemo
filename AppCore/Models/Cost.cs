@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace AppCore.Models
@@ -9,7 +10,8 @@ namespace AppCore.Models
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public double Value { get; set; }
+        //[DataType(DataType.Currency)]
+        public decimal Value { get; set; }
         public string Description { get; set; }
 
         public int CostTypeId { get; set; }
@@ -24,14 +26,25 @@ namespace AppCore.Models
         {
         }
 
-        public Cost(string name, double value, string description, int costTypeId, CostType costType, STATUS status = STATUS.AVAILABLE)
+        public Cost(string name, decimal value, string description, int costTypeId, STATUS status = STATUS.AVAILABLE)
         {
             Name = name;
             Value = value;
             Description = description;
             CostTypeId = costTypeId;
-            CostType = costType;
             Status = status;
+        }
+        public Cost(Cost cost)
+        {
+            Copy(cost);
+        }
+        public void Copy(Cost cost)
+        {
+            Name = cost.Name;
+            Value = cost.Value;
+            Description = cost.Description;
+            CostTypeId = cost.CostTypeId;
+            Status = cost.Status;
         }
     }
 }

@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ManageToursContext))]
-    [Migration("20201029070549_initiation")]
-    partial class initiation
+    [Migration("20201118145925_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -69,8 +69,8 @@ namespace Infrastructure.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("INTEGER");
 
-                    b.Property<double>("Value")
-                        .HasColumnType("REAL");
+                    b.Property<decimal>("Value")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -293,6 +293,9 @@ namespace Infrastructure.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("EndDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("StartDate")

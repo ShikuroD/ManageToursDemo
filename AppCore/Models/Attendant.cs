@@ -17,12 +17,23 @@ namespace AppCore.Models
         public Attendant()
         {
         }
+        
 
         public Attendant(int groupId, int employeeId, int jobId)
         {
             GroupId = groupId;
             EmployeeId = employeeId;
             JobId = jobId;
+        }
+        public Attendant(Attendant attendant)
+        {
+            this.Copy(attendant);
+        }
+        public void Copy(Attendant a)
+        {
+            GroupId = a.GroupId;
+            EmployeeId = a.EmployeeId;
+            JobId = a.JobId;
         }
     }
 }
