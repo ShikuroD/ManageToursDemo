@@ -612,7 +612,7 @@ namespace Presentation.Forms
 
         private void btnDeletePerson_Click(object sender, EventArgs e)
         {
-            var check = MessageBox.Show("Xóa chi phí này?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            var check = MessageBox.Show(_forCustomer?"Xóa khách hàng này?":"Xóa nhân viên này?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             if (check.Equals(DialogResult.OK))
             {
                 if (_forCustomer)
