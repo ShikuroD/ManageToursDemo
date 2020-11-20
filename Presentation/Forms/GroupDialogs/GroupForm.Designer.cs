@@ -113,7 +113,7 @@ namespace Presentation.Forms
             this.groupBox2.Controls.Add(this.groupBox1);
             this.groupBox2.Location = new System.Drawing.Point(12, 422);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(783, 277);
+            this.groupBox2.Size = new System.Drawing.Size(922, 207);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Danh sách";
@@ -124,7 +124,7 @@ namespace Presentation.Forms
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.btnAddPerson, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnDeletePerson, 0, 1);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(647, 94);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(783, 22);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -163,7 +163,7 @@ namespace Presentation.Forms
             this.gridPerson.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.gridPerson.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.gridPerson.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridPerson.Location = new System.Drawing.Point(6, 94);
+            this.gridPerson.Location = new System.Drawing.Point(142, 22);
             this.gridPerson.MultiSelect = false;
             this.gridPerson.Name = "gridPerson";
             this.gridPerson.ReadOnly = true;
@@ -319,14 +319,14 @@ namespace Presentation.Forms
             this.groupBox4.Controls.Add(this.gridCost);
             this.groupBox4.Location = new System.Drawing.Point(18, 211);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(777, 205);
+            this.groupBox4.Size = new System.Drawing.Size(916, 205);
             this.groupBox4.TabIndex = 3;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Chi phí";
             // 
             // txtSumCost
             // 
-            this.txtSumCost.Location = new System.Drawing.Point(407, 168);
+            this.txtSumCost.Location = new System.Drawing.Point(541, 171);
             this.txtSumCost.Name = "txtSumCost";
             this.txtSumCost.ReadOnly = true;
             this.txtSumCost.Size = new System.Drawing.Size(227, 23);
@@ -336,7 +336,7 @@ namespace Presentation.Forms
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(334, 171);
+            this.label6.Location = new System.Drawing.Point(468, 174);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(67, 15);
             this.label6.TabIndex = 3;
@@ -349,7 +349,7 @@ namespace Presentation.Forms
             this.tableLayoutPanel3.Controls.Add(this.btnAddCost, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.btnEditCost, 0, 1);
             this.tableLayoutPanel3.Controls.Add(this.btnDeleteCost, 0, 2);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(640, 13);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(777, 22);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 3;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
@@ -407,13 +407,13 @@ namespace Presentation.Forms
             this.gridCost.RowHeadersVisible = false;
             this.gridCost.RowTemplate.Height = 25;
             this.gridCost.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gridCost.Size = new System.Drawing.Size(628, 149);
+            this.gridCost.Size = new System.Drawing.Size(762, 149);
             this.gridCost.TabIndex = 0;
             this.gridCost.SelectionChanged += new System.EventHandler(this.gridCost_SelectionChanged);
             // 
             // btnOk
             // 
-            this.btnOk.Location = new System.Drawing.Point(484, 707);
+            this.btnOk.Location = new System.Drawing.Point(484, 635);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(109, 56);
             this.btnOk.TabIndex = 4;
@@ -423,7 +423,7 @@ namespace Presentation.Forms
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(640, 707);
+            this.btnCancel.Location = new System.Drawing.Point(640, 635);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(109, 56);
             this.btnCancel.TabIndex = 5;
@@ -434,7 +434,7 @@ namespace Presentation.Forms
             // btnOKView
             // 
             this.btnOKView.DialogResult = System.Windows.Forms.DialogResult.Yes;
-            this.btnOKView.Location = new System.Drawing.Point(352, 707);
+            this.btnOKView.Location = new System.Drawing.Point(352, 635);
             this.btnOKView.Name = "btnOKView";
             this.btnOKView.Size = new System.Drawing.Size(120, 56);
             this.btnOKView.TabIndex = 6;
@@ -446,7 +446,7 @@ namespace Presentation.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(804, 775);
+            this.ClientSize = new System.Drawing.Size(960, 695);
             this.Controls.Add(this.btnOKView);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);

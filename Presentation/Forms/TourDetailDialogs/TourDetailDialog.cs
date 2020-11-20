@@ -317,7 +317,7 @@ namespace Presentation.Forms
         private void btnEditPrice_Click(object sender, EventArgs e)
         {
             var price = _prices.Where(m => m.Id.Equals(Int32.Parse(gridPrice.SelectedRows[0].Cells[0].Value.ToString()))).First();
-            var dialog = new PriceDialog(_unitOfWork, price, _prices, _priceModified, _nextPriceId, _tour.Name);
+            var dialog = new PriceDialog(_unitOfWork, price, _prices, _priceModified, _nextPriceId, _tour == null? "": _tour.Name);
             var check = dialog.ShowDialog();
 
             if (check.Equals(DialogResult.OK))

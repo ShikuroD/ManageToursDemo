@@ -64,7 +64,7 @@
             this.listLocation.ItemHeight = 15;
             this.listLocation.Location = new System.Drawing.Point(7, 54);
             this.listLocation.Name = "listLocation";
-            this.listLocation.Size = new System.Drawing.Size(170, 259);
+            this.listLocation.Size = new System.Drawing.Size(170, 229);
             this.listLocation.TabIndex = 0;
             // 
             // groupBox1
@@ -77,7 +77,7 @@
             this.groupBox1.Controls.Add(this.listLocation);
             this.groupBox1.Location = new System.Drawing.Point(362, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(401, 324);
+            this.groupBox1.Size = new System.Drawing.Size(401, 290);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Lập lịch trình";
@@ -128,7 +128,7 @@
             this.listRoute.Location = new System.Drawing.Point(225, 54);
             this.listRoute.Name = "listRoute";
             this.listRoute.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.listRoute.Size = new System.Drawing.Size(170, 259);
+            this.listRoute.Size = new System.Drawing.Size(170, 229);
             this.listRoute.TabIndex = 1;
             // 
             // lbId
@@ -203,7 +203,7 @@
             // 
             this.groupBox2.Controls.Add(this.tableLayoutPanel1);
             this.groupBox2.Controls.Add(this.gridPrice);
-            this.groupBox2.Location = new System.Drawing.Point(16, 349);
+            this.groupBox2.Location = new System.Drawing.Point(16, 308);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(747, 250);
             this.groupBox2.TabIndex = 10;
@@ -283,7 +283,7 @@
             // 
             // btnOk
             // 
-            this.btnOk.Location = new System.Drawing.Point(443, 605);
+            this.btnOk.Location = new System.Drawing.Point(443, 564);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(138, 41);
             this.btnOk.TabIndex = 11;
@@ -293,7 +293,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(625, 605);
+            this.btnCancel.Location = new System.Drawing.Point(625, 564);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(138, 41);
             this.btnCancel.TabIndex = 12;
@@ -305,7 +305,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(777, 657);
+            this.ClientSize = new System.Drawing.Size(777, 613);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.groupBox2);
